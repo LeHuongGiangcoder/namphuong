@@ -83,7 +83,7 @@ export function useGuest() {
 
 /**
  * Kiểu thiệp đang áp dụng. Khách không có link riêng (hoặc slug sai) được coi
- * như khách `general` — thấy tiệc chính, không thấy tiệc chiều.
+ * như khách `general` — thấy tiệc chính, không thấy lễ vow buổi sáng.
  */
 export function useInvitationType(): InvitationType {
   return useGuest().guest?.type ?? "general";

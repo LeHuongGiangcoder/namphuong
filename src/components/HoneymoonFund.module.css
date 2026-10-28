@@ -1,0 +1,94 @@
+/*
+   Ba nhóm nội dung: lời nhắn, các thẻ tài khoản, rồi lời ký + hashtag khép
+   lại trang. Trong nhóm để chặt, giữa các nhóm mới nới ra.
+*/
+
+.body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.head {
+  max-width: 44ch;
+}
+
+/* Hai thẻ cạnh nhau từ tablet, xếp chồng trên điện thoại */
+.accounts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  align-items: start;
+  gap: var(--sp-md);
+  width: min(100%, 560px);
+  margin-top: var(--sp-lg);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-2xs);
+  padding: var(--sp-lg) var(--sp-md);
+  border-radius: var(--r-md);
+  background: var(--c-cream);
+  box-shadow:
+    inset 0 0 0 1px var(--rule),
+    0 10px 24px -18px rgba(67, 38, 29, 0.45);
+  text-align: center;
+}
+
+.qr {
+  width: min(180px, 70%);
+  height: auto;
+  margin-block: var(--sp-2xs);
+  border-radius: var(--r-sm);
+}
+
+.bank {
+  font-size: var(--fs-sm);
+  color: var(--fg-muted);
+}
+
+/* Số tài khoản là thứ khách cần đọc nhất — to, đậm, chữ số đều nhau */
+.number {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+  color: var(--fg-head);
+}
+
+.holder {
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--c-ink);
+}
+
+.holder + :global(.btn) {
+  margin-top: var(--sp-xs);
+}
+
+.pending {
+  font-family: var(--font-hand);
+  font-size: clamp(1.1rem, 1rem + 0.5vw, 1.35rem);
+  color: var(--fg-muted);
+}
+
+.sign {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-xs);
+  margin-top: var(--sp-xl);
+}
+
+.hashtag {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--fs-h3);
+  font-variation-settings: "SOFT" 60, "WONK" 1, "opsz" 72;
+  text-align: center;
+  color: var(--fg-head);
+}

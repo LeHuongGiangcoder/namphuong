@@ -201,9 +201,9 @@ export type InvitationType = "intimate" | "general";
 export const rsvp = {
   title: "Bạn tới với tụi mình nha?",
   note: "Nhắn giùm tụi mình một tiếng để còn chuẩn bị chỗ ngồi thật đẹp cho bạn.",
-  /** Câu 1 đổi chữ theo kiểu thiệp: khách intimate được mời từ chiều */
+  /** Câu 1 đổi chữ theo kiểu thiệp: khách intimate được mời từ lễ vow buổi sáng */
   attending: {
-    intimate: "Bạn sẽ có mặt cùng chúng mình từ chiều chứ?",
+    intimate: "Bạn sẽ có mặt cùng chúng mình từ lễ vow buổi sáng chứ?",
     general: "Bạn sẽ có mặt cùng chúng mình chứ?",
     yes: "Có chứ, tui tới!",
     no: "Tiếc quá, tui bận mất rồi",
@@ -231,14 +231,23 @@ export const rsvp = {
   },
 };
 
-export const thanks = {
-  title: "Cảm ơn bạn",
-  lines: [
-    "Hẹn gặp bạn ở đám cưới, nhớ đói bụng sẵn nha!",
+/**
+ * Quỹ trăng mật — section cuối trang. Mỗi tài khoản là một thẻ: có `qr` thì
+ * hiện mã QR, có `number` thì hiện nút sao chép; để trống thì thẻ ghi
+ * "Đang cập nhật" thay vì hiện số giả.
+ */
+export const honeymoon = {
+  eyebrow: "Honeymoon fund",
+  title: "Góp quỹ trăng mật",
+  note: "Bạn đến chung vui đã là món quà lớn nhất của tụi mình rồi. Nếu muốn gửi thêm chút thương cho chuyến trăng mật, bạn ghé vào đây nha.",
+  pending: "Đang cập nhật",
+  copy: "Sao chép",
+  copied: "Đã chép!",
+  accounts: [
+    { owner: "Chú rể", bank: "", holder: "", number: "", qr: "" },
+    { owner: "Cô dâu", bank: "", holder: "", number: "", qr: "" },
   ],
   signature: "Thương nhiều, Kỳ Nam & Minh Phương",
-  /** Ba bé mèo trong tranh — để trống mảng này nếu không muốn hiện tên */
-  cats: ["Lim", "Bư", "Muỗi"],
 };
 
 /**
