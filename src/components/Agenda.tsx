@@ -31,7 +31,7 @@ function duration(start: string, end: string) {
 }
 
 export function Agenda() {
-  // Chỉ khách được mời tiệc chiều mới thấy chặng intimate — và cũng chỉ họ mới
+  // Chỉ khách được mời tiệc sáng mới thấy chặng intimate — và cũng chỉ họ mới
   // thấy thanh chuyển giữa hai buổi tiệc.
   const intimateGuest = useInvitationType() === "intimate";
   const parties = agenda.parties.filter((p) => p.id !== "intimate" || intimateGuest);

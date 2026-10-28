@@ -1,4 +1,4 @@
-# Quốc Anh & Diệp Khanh — thiệp cưới online
+# Kỳ Nam & Minh Phương — thiệp cưới online
 
 Next.js 16 (App Router) · không thêm thư viện UI nào · hoạt ảnh thuần CSS.
 

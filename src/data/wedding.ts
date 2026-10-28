@@ -9,11 +9,11 @@ export type Attendance = "yes" | "no";
 
 export const couple = {
   /** Tên hiển thị lớn ở hero */
-  groom: "Quốc Anh",
-  bride: "Diệp Khanh",
-  groomFull: "Nguyễn Quốc Anh",
-  brideFull: "Phạm Diệp Khanh",
-  hashtag: "#QuocAnhCuoiDiepKhanh",
+  groom: "Kỳ Nam",
+  bride: "Minh Phương",
+  groomFull: "Kỳ Nam",
+  brideFull: "Minh Phương",
+  hashtag: "#KyNamCuoiMinhPhuong",
 };
 
 /** Chữ ở trang bìa — chỉ hiện khi khách vào bằng link mời riêng */
@@ -26,28 +26,28 @@ export const families = [
   {
     side: "Nhà trai",
     people: [
-      { role: "Bố iu", name: "Trịnh Thanh Hải" },
-      { role: "Mẹ iu", name: "Lê Thị Hoà" },
+      { role: "Bố iu", name: "Hoàng Xuân Bảo" },
+      { role: "Mẹ iu", name: "Nguyễn Trung Thị Hà" },
     ],
   },
   {
     side: "Nhà gái",
     people: [
-      { role: "Bố iu", name: "Đàm Thận Tiệp" },
-      { role: "Mẹ iu", name: "Nguyễn Thị Quỳnh Trang" },
+      { role: "Bố iu", name: "Phạm Thanh Long" },
+      { role: "Mẹ iu", name: "Đồng Thị Hồng Gấm" },
     ],
   },
 ];
 
 /** Giờ khai tiệc chính (giờ Việt Nam, UTC+7) — tờ lịch và đồng hồ đếm ngược đều tính từ đây */
-export const weddingDate = "2026-09-25T17:30:00+07:00";
+export const weddingDate = "2026-11-14T11:30:00+07:00";
 
 export const dateLabel = {
-  weekday: "Thứ Sáu",
-  day: "25",
-  month: "09",
+  weekday: "Thứ Bảy",
+  day: "14",
+  month: "11",
   year: "2026",
-  lunar: "Nhằm ngày 15 tháng 8 âm lịch",
+  lunar: "Nhằm ngày 06 tháng 10 năm Bính Ngọ",
 };
 
 /** Album ảnh cưới — mỗi tấm là một ô trên cuộn phim ở section "Album" */
@@ -58,16 +58,16 @@ export const gallery = {
   /** Gợi ý cho người xem biết dải phim kéo ngang được */
   hint: "vuốt sang phải để xem tiếp",
   shots: [
-    { src: "/gallery/01.webp", alt: "Quốc Anh khoanh tay, Diệp Khanh chống hông trước phông trái tim đỏ" },
-    { src: "/gallery/02.webp", alt: "Hai đứa đứng cạnh nhau, Diệp Khanh cười tít mắt" },
-    { src: "/gallery/03.webp", alt: "Diệp Khanh tựa cằm lên tay, Quốc Anh đứng thẳng bên cạnh" },
+    { src: "/gallery/01.webp", alt: "Kỳ Nam khoanh tay, Minh Phương chống hông trước phông trái tim đỏ" },
+    { src: "/gallery/02.webp", alt: "Hai đứa đứng cạnh nhau, Minh Phương cười tít mắt" },
+    { src: "/gallery/03.webp", alt: "Minh Phương tựa cằm lên tay, Kỳ Nam đứng thẳng bên cạnh" },
     { src: "/gallery/04.webp", alt: "Hai đứa đứng sát vai trước phông trái tim" },
-    { src: "/gallery/05.webp", alt: "Quốc Anh và Diệp Khanh dưới vầng sáng ấm" },
-    { src: "/gallery/06.webp", alt: "Diệp Khanh trao nụ hôn gió, Quốc Anh đứng cạnh" },
+    { src: "/gallery/05.webp", alt: "Kỳ Nam và Minh Phương dưới vầng sáng ấm" },
+    { src: "/gallery/06.webp", alt: "Minh Phương trao nụ hôn gió, Kỳ Nam đứng cạnh" },
     { src: "/gallery/07.webp", alt: "Hai đứa khoanh tay dưới ánh đèn spotlight" },
-    { src: "/gallery/08.webp", alt: "Diệp Khanh tựa vào vai Quốc Anh" },
+    { src: "/gallery/08.webp", alt: "Minh Phương tựa vào vai Kỳ Nam" },
     { src: "/gallery/09.webp", alt: "Hai đứa tay trong tay dưới vầng sáng" },
-    { src: "/gallery/10.webp", alt: "Diệp Khanh hôn nhẹ lên má Quốc Anh" },
+    { src: "/gallery/10.webp", alt: "Minh Phương hôn nhẹ lên má Kỳ Nam" },
   ],
 };
 
@@ -81,16 +81,16 @@ export const puzzle = {
   done: "Khớp rồi! Thông tin lễ cưới mở ngay bên dưới nha.",
   locked: "Ghép hai mảnh ảnh phía trên để mở phần này nha",
   pieces: [
-    { src: "/art/puzzle-2.webp", alt: "Diệp Khanh dưới ánh đèn spotlight" },
-    { src: "/art/puzzle-1.webp", alt: "Quốc Anh dưới ánh đèn spotlight" },
+    { src: "/art/puzzle-2.webp", alt: "Minh Phương dưới ánh đèn spotlight" },
+    { src: "/art/puzzle-1.webp", alt: "Kỳ Nam dưới ánh đèn spotlight" },
   ],
 };
 
 export const venue = {
-  name: "Forevermark Tây Hồ",
-  hall: "Tầng 2",
-  address: "614 đường Lạc Long Quân, Tây Hồ, Hà Nội",
-  mapUrl: "https://maps.google.com/?q=Forevermark+614+Lac+Long+Quan+Tay+Ho+Ha+Noi",
+  name: "Cầu Am Place",
+  hall: "",
+  address: "Số 9 Chu Văn An, Yết Kiêu, Hà Đông, Hà Nội",
+  mapUrl: "https://maps.google.com/?q=C%E1%BA%A7u+Am+Place+9+Chu+V%C4%83n+An+H%C3%A0+%C4%90%C3%B4ng+H%C3%A0+N%E1%BB%99i",
   note: "Tới sớm một chút để còn kịp chụp hình với tụi mình nha.",
 };
 
@@ -132,63 +132,44 @@ export const agenda: {
   parties: [
     {
       id: "intimate",
-      tab: "Tiệc intimate",
-      title: "Buổi chiều của những người thân nhất",
-      start: "15:00",
-      end: "17:30",
+      tab: "Lễ vow",
+      title: "Buổi sáng của những người thân nhất",
+      start: "09:30",
+      end: "11:30",
       items: [
         {
-          time: "15:00",
-          title: "Welcoming",
-          note: "Photobooth, tiệc sún răng",
+          time: "09:30",
+          title: "Đón khách",
           photo: "/agenda/01-welcoming.webp",
           alt: "Hai đứa trước phông trái tim đỏ",
         },
         {
-          time: "16:00",
-          title: "Vows ceremony",
+          time: "10:00",
+          title: "Lễ vow",
+          note: "Lễ thề nguyện của hai đứa",
           photo: "/agenda/02-vows.webp",
-          alt: "Diệp Khanh cười, Quốc Anh khoanh tay",
-        },
-        {
-          time: "16:45",
-          title: "Gap time",
-          note: "Nghỉ ngơi, chờ tiệc chính",
-          photo: "/agenda/03-gap.webp",
-          alt: "Hai đứa đứng sát bên nhau",
+          alt: "Minh Phương cười, Kỳ Nam khoanh tay",
         },
       ],
     },
     {
       id: "main",
       tab: "Tiệc chính",
-      title: "Buổi tối hôm đó sẽ diễn ra như vầy",
-      start: "17:30",
-      end: "21:00",
+      title: "Buổi trưa hôm đó sẽ diễn ra như vầy",
+      start: "11:00",
+      end: "14:00",
       items: [
         {
-          time: "17:30",
+          time: "11:00",
           title: "Đón khách",
           photo: "/agenda/04-welcome.webp",
           alt: "Hai đứa dưới vầng sáng spotlight",
         },
         {
-          time: "18:00",
-          title: "Làm lễ",
-          photo: "/agenda/05-ceremony.webp",
-          alt: "Hai đứa khoanh tay trước vầng sáng",
-        },
-        {
-          time: "18:30",
+          time: "11:30",
           title: "Khai tiệc",
           photo: "/agenda/06-party.webp",
-          alt: "Diệp Khanh ôm Quốc Anh, hôn nhẹ lên má",
-        },
-        {
-          time: "19:30",
-          title: "Games & quẩy",
-          photo: "/agenda/07-games.webp",
-          alt: "Hai đứa tay trong tay dưới ánh đèn",
+          alt: "Minh Phương ôm Kỳ Nam, hôn nhẹ lên má",
         },
       ],
     },
@@ -250,7 +231,7 @@ export const thanks = {
   lines: [
     "Hẹn gặp bạn ở đám cưới, nhớ đói bụng sẵn nha!",
   ],
-  signature: "Thương nhiều, Quốc Anh & Diệp Khanh",
+  signature: "Thương nhiều, Kỳ Nam & Minh Phương",
   /** Ba bé mèo trong tranh — để trống mảng này nếu không muốn hiện tên */
   cats: ["Lim", "Bư", "Muỗi"],
 };

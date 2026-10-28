@@ -12,6 +12,18 @@ import s from "./Puzzle.module.css";
  */
 const TAB = 0.18;
 
+const TAB_PATH = `M0,0 H${1 - TAB} V0.35 C0.9,0.27 1,0.37 1,0.5 C1,0.63 0.9,0.73 ${1 - TAB},0.65 V1 H0 Z`;
+const NOTCH_PATH = `M0,0 H1 V1 H0 V0.65 C0.08,0.73 ${TAB},0.63 ${TAB},0.5 C${TAB},0.37 0.08,0.27 0,0.35 Z`;
+
+/** Viền vẽ đè lên mép cắt: clip-path tự nó không khử răng cưa nên mép ảnh trông thô */
+function Frame({ d }: { d: string }) {
+  return (
+    <svg className={s.frame} viewBox="0 0 1 1" preserveAspectRatio="none" aria-hidden="true">
+      <path d={d} />
+    </svg>
+  );
+}
+
 /*
    Vị trí mảnh rời đo bằng BỀ RỘNG MẢNH chứ không phải pixel: mảnh vuông nên
    `translate` phần trăm quy đúng về bề rộng đó, khỏi cần đo đạc gì thêm và đổi
@@ -102,24 +114,31 @@ export function Puzzle() {
       <svg className={s.defs} aria-hidden="true">
         <defs>
           <clipPath id={`${clipId}-tab`} clipPathUnits="objectBoundingBox">
-            <path d={`M0,0 H${1 - TAB} V0.35 C0.9,0.27 1,0.37 1,0.5 C1,0.63 0.9,0.73 ${1 - TAB},0.65 V1 H0 Z`} />
+            <path d={TAB_PATH} />
           </clipPath>
           <clipPath id={`${clipId}-notch`} clipPathUnits="objectBoundingBox">
-            <path d={`M0,0 H1 V1 H0 V0.65 C0.08,0.73 ${TAB},0.63 ${TAB},0.5 C${TAB},0.37 0.08,0.27 0,0.35 Z`} />
+            <path d={NOTCH_PATH} />
           </clipPath>
         </defs>
       </svg>
 
       <div className={`${s.board} ${solved ? s.solved : ""}`}>
-        <figure className={s.slot} style={{ clipPath: `url(#${clipId}-tab)` }}>
-          <img src={left.src} alt={left.alt} width={620} height={620} draggable={false} />
+        <figure className={s.slot}>
+          <img
+            src={left.src}
+            alt={left.alt}
+            width={620}
+            height={620}
+            draggable={false}
+            style={{ clipPath: `url(#${clipId}-tab)` }}
+          />
+          <Frame d={TAB_PATH} />
         </figure>
 
         <div
           className={`${s.piece} ${dragging ? s.dragging : ""}`}
           style={
             {
-              clipPath: `url(#${clipId}-notch)`,
               "--fx": pos.x,
               "--fy": pos.y,
             } as CSSProperties
@@ -134,7 +153,15 @@ export function Puzzle() {
           onPointerCancel={handlePointerUp}
           onKeyDown={handleKeyDown}
         >
-          <img src={right.src} alt={right.alt} width={620} height={620} draggable={false} />
+          <img
+            src={right.src}
+            alt={right.alt}
+            width={620}
+            height={620}
+            draggable={false}
+            style={{ clipPath: `url(#${clipId}-notch)` }}
+          />
+          <Frame d={NOTCH_PATH} />
         </div>
       </div>
 

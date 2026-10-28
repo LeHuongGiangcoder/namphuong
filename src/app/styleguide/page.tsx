@@ -64,7 +64,7 @@ export default function StyleGuide() {
           <div className="stack stack--sm">
             <p className="eyebrow">Eyebrow · 0.75rem · tracking 0.22em</p>
             <p className="display">Display</p>
-            <p className="h1">Heading 1 — Quốc Anh &amp; Diệp Khanh</p>
+            <p className="h1">Heading 1 — Kỳ Nam &amp; Minh Phương</p>
             <p className="h2">Heading 2 — Thông tin lễ cưới</p>
             <p className="h3">Heading 3 — Lễ Vu Quy</p>
             <p className="h4">Heading 4 — Trung tâm Hội nghị Hoa Sứ</p>

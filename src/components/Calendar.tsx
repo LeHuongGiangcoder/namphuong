@@ -76,7 +76,7 @@ export function Calendar() {
               <img src="/art/beige/tape.webp" alt="" aria-hidden="true" className={s.tape} />
               <img
                 src="/art/cal-photo-1.webp"
-                alt="Quốc Anh và Diệp Khanh trong bộ ảnh cưới"
+                alt="Kỳ Nam và Minh Phương trong bộ ảnh cưới"
                 width={560}
                 height={700}
               />
@@ -95,7 +95,7 @@ export function Calendar() {
             <figure className={`${s.snap} sway`}>
               <img
                 src="/art/cal-photo-2.webp"
-                alt="Quốc Anh và Diệp Khanh trong bộ ảnh cưới"
+                alt="Kỳ Nam và Minh Phương trong bộ ảnh cưới"
                 width={440}
                 height={550}
               />

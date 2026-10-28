@@ -1,5 +1,5 @@
 /**
- * Quản lý khách mời — Quốc Anh & Diệp Khanh
+ * Quản lý khách mời — Kỳ Nam & Minh Phương
  *
  * Dán toàn bộ file này vào Extensions → Apps Script của Google Sheet.
  * Hướng dẫn đầy đủ: docs/guest-management-google-sheets.md

@@ -73,7 +73,7 @@ export function Details() {
             <img className={`${s.illustration} sway`} src="/art/venue.webp" alt="" aria-hidden="true" />
             <p className="eyebrow">Địa điểm</p>
             <h3 className="h3">{venue.name}</h3>
-            <p className="h4">{venue.hall}</p>
+            {venue.hall && <p className="h4">{venue.hall}</p>}
             <p className="muted">{venue.address}</p>
             <p className="script">{venue.note}</p>
             <a className="btn btn--stamp" href={venue.mapUrl} target="_blank" rel="noreferrer noopener">
