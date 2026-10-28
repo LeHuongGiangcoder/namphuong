@@ -190,9 +190,9 @@ export const dresscode = {
  * Xem docs/guest-management-google-sheets.md. Để trống thì trang vẫn chạy:
  * không tra được tên, và câu trả lời chỉ lưu tạm ở localStorage.
  */
-export const sheetEndpoint = process.env.NEXT_PUBLIC_RSVP_ENDPOINT ?? "https://script.google.com/macros/s/AKfycbxB9Oc65toi-UmEfTB_J6d3l8LQoNQvhpyY1IaIIKR2h8I59K1NxvCGTZckTqLaT5y_/exec";
+export const sheetEndpoint = process.env.NEXT_PUBLIC_RSVP_ENDPOINT ?? "https://script.google.com/macros/s/AKfycbxTROKLSnmUe0hd4fdAcdD9dx_ULmMLJB30G0vXXMjLGokTdRpYG1kTu0U47O1uw9L4KQ/exec";
 
-/** Slug của khách trên Glow RSVP Hub — hub dùng nó để tìm đúng Sheet */
+/** Slug trên Glow RSVP Hub. Script riêng của dự án bỏ qua trường này; giữ lại phòng khi quay về Hub */
 export const rsvpClient = "namphuong";
 
 /** Hai kiểu thiệp — khớp với cột "Invitation type" trong Sheet */

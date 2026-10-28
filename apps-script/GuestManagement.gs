@@ -7,7 +7,7 @@
  *
  * Sheet "Guests Management":
  *   No · Name · Invitation type · Table · Slug · Link
- *   Attending · Number · Other name · Note · Updated
+ *   Tham dự · Số người đi cùng · Tên người đi cùng · Lời nhắn · Updated
  *
  * Cặp đôi điền Name, Invitation type và Table (số bàn, để trống nếu chưa xếp).
  * Slug + Link tự hiện khi điền xong Name + Invitation type. Khách mở link, trả
@@ -31,10 +31,11 @@ const HEADERS = {
   table: ['table', 'so-ban', 'ban'],
   slug: ['slug'],
   link: ['link'],
-  attending: ['attending'],
-  number: ['number'],
-  otherName: ['other-name'],
-  note: ['note'],
+  // Hub đặt nhãn tiếng Việt cho câu trả lời, nên nhận cả hai kiểu tiêu đề
+  attending: ['attending', 'tham-du'],
+  number: ['number', 'so-nguoi-di-cung'],
+  otherName: ['other-name', 'ten-nguoi-di-cung'],
+  note: ['note', 'loi-nhan'],
   updated: ['updated'],
 };
 
