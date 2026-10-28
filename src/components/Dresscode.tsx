@@ -22,16 +22,12 @@ export function Dresscode() {
           <p className="lead">{dresscode.note}</p>
         </Reveal>
 
-        {/*
-          Hai pose 2.png / 3.png đổi qua lại: pose A giữ 0,4s, pose B giữ 0,8s.
-          Đổi bằng CSS thay vì GIF để giữ nền trong suốt và không bị răng cưa.
-        */}
-        <Reveal className={s.flipbook} delay={80}>
-          <img className={`${s.frame} ${s.frameA}`} src="/art/draw/pose-a.webp" alt="" aria-hidden="true" />
+        <Reveal className={s.drawing} delay={80}>
           <img
-            className={`${s.frame} ${s.frameB}`}
-            src="/art/draw/pose-b.webp"
+            src="/art/draw/dresscode.webp"
             alt={`Tranh vẽ ${couple.groom} và ${couple.bride}`}
+            width={760}
+            height={760}
           />
         </Reveal>
 

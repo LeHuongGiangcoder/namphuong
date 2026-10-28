@@ -224,6 +224,11 @@ export const rsvp = {
   closing: "Nếu có câu hỏi hoặc cần trợ giúp, đừng ngại nhắn cho cô dâu chú rể nhé 🎀 Luôn có mặt 💓",
   successTitle: "Nhận được rồi nè!",
   successNote: "Cảm ơn bạn thiệt nhiều. Tụi mình sẽ giữ sẵn một chỗ ngồi xinh xinh cho bạn.",
+  /** Số bàn lấy từ cột "Table" trong Sheet — chỉ hiện với khách có link mời riêng */
+  table: {
+    label: "Bàn của bạn",
+    pending: "To be updated",
+  },
 };
 
 export const thanks = {

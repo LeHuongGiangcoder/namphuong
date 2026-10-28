@@ -19,6 +19,7 @@ PIECES = {
     "components/40.png": ("printer.webp", 1600),
     "drawing/2.png": ("draw/pose-a.webp", 760),
     "drawing/3.png": ("draw/pose-b.webp", 760),
+    "drawing/updated.png": ("draw/dresscode.webp", 760),
     "drawing/4.png": ("draw/her.webp", 520),
     "drawing/5.png": ("draw/him.webp", 520),
     "drawing/6.png": ("draw/cat-1.webp", 460),

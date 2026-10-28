@@ -99,6 +99,12 @@ export function Rsvp() {
               <img className={s.seal} src="/art/seal.webp" alt="" aria-hidden="true" />
               <h3 className="h3">{rsvp.successTitle}</h3>
               <p className="script">{rsvp.successNote}</p>
+              {guest ? (
+                <p className={s.table}>
+                  <span className="eyebrow">{rsvp.table.label}</span>
+                  <span className="h3">{guest.table || rsvp.table.pending}</span>
+                </p>
+              ) : null}
               <button type="button" className="btn btn--outline" onClick={() => setStatus("idle")}>
                 Sửa lại câu trả lời
               </button>

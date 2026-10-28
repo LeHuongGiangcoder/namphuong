@@ -15,6 +15,8 @@ export type Guest = {
   slug: string;
   name: string;
   type: InvitationType;
+  /** Số bàn cặp đôi xếp trong Sheet; rỗng là chưa xếp */
+  table: string;
 };
 
 type GuestState = {
@@ -45,7 +47,7 @@ export function GuestProvider({ children }: { children: ReactNode }) {
 
     fetch(url)
       .then((res) => res.json())
-      .then((data: { ok?: boolean; name?: string; type?: string }) => {
+      .then((data: { ok?: boolean; name?: string; type?: string; table?: string | number }) => {
         if (!alive) return;
         if (!data?.ok || !data.name) {
           setFailed(true);
@@ -55,6 +57,7 @@ export function GuestProvider({ children }: { children: ReactNode }) {
           slug,
           name: data.name,
           type: data.type === "intimate" ? "intimate" : "general",
+          table: String(data.table ?? "").trim(),
         });
       })
       .catch(() => {
