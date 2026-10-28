@@ -1,0 +1,132 @@
+/*
+   Trò ghép hai mảnh ảnh. Mảnh trái đứng yên và thò mấu ra phải; mảnh phải rời,
+   kéo được, có lỗ khoét vừa đúng cái mấu đó. Hình dạng do <clipPath> trong
+   Puzzle.tsx cắt, ở đây chỉ lo chỗ đứng và chuyển động.
+*/
+
+.wrap {
+  /*
+     Bàn cờ rộng gấp 2,34 lần một mảnh, mà khung nội dung chỉ có 100vw trừ hai
+     lề section — nên chặn dưới phải đủ nhỏ để màn 320px vẫn không tràn ngang.
+  */
+  --pw: clamp(112px, 34vw, 240px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-md);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h4);
+  letter-spacing: var(--ls-head);
+  color: var(--c-red);
+}
+
+.defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.board {
+  position: relative;
+  /* Đủ chỗ cho mảnh rời nằm lệch ra ngoài lúc chưa ghép */
+  width: calc(var(--pw) * (2 - 0.18 + 0.52));
+  height: calc(var(--pw) * 1.24);
+}
+
+.slot,
+.piece {
+  position: absolute;
+  top: calc(var(--pw) * 0.02);
+  width: var(--pw);
+  aspect-ratio: 1;
+  margin: 0;
+}
+
+.slot img,
+.piece img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.slot {
+  left: 0;
+}
+
+/*
+   Mảnh rời: --fx/--fy là độ lệch so với chỗ đúng, tính theo bề rộng mảnh.
+   Mảnh vuông nên `translate` phần trăm quy về đúng bề rộng đó. Về 0 là khớp.
+*/
+.piece {
+  left: calc(var(--pw) * 0.82);
+  translate: calc(var(--fx, 0) * 100%) calc(var(--fy, 0) * 100%);
+  rotate: 5deg;
+  cursor: grab;
+  touch-action: none;
+  filter: drop-shadow(0 8px 14px rgba(67, 38, 29, 0.4));
+  transition:
+    translate var(--t-med) var(--ease-out),
+    rotate var(--t-med) var(--ease-out),
+    filter var(--t-fast) var(--ease-out);
+}
+
+/* Lúc đang kéo thì bám sát ngón tay, không được có độ trễ nào */
+.dragging {
+  cursor: grabbing;
+  rotate: 2deg;
+  transition: none;
+  filter: drop-shadow(0 14px 20px rgba(67, 38, 29, 0.45));
+}
+
+.piece:focus-visible {
+  outline: 2px solid var(--c-red);
+  outline-offset: 4px;
+}
+
+.solved .piece {
+  rotate: 0deg;
+  cursor: default;
+  filter: drop-shadow(0 6px 12px rgba(67, 38, 29, 0.3));
+}
+
+/* Khớp xong thì cả cặp nảy lên một cái cho biết là xong */
+.solved .slot,
+.solved .piece {
+  animation: puzzle-click 420ms var(--ease-out);
+}
+
+@keyframes puzzle-click {
+  40% {
+    transform: translateY(-6px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.prompt {
+  max-width: 30ch;
+  font-family: var(--font-hand);
+  font-size: clamp(1.05rem, 0.9rem + 0.7vw, 1.35rem);
+  line-height: 1.3;
+  text-align: center;
+  text-wrap: balance;
+  color: var(--c-red);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .piece {
+    transition: none;
+  }
+
+  .solved .slot,
+  .solved .piece {
+    animation: none;
+  }
+}

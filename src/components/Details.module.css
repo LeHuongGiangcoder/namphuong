@@ -1,0 +1,109 @@
+.divider {
+  width: min(100%, 14rem);
+  height: 0;
+  margin: clamp(1.75rem, 1rem + 3vw, 3rem) auto;
+  border: 0;
+  border-top: 1px dashed var(--rule);
+}
+
+/* Bố mẹ hai bên, hai cột cạnh nhau; màn hẹp thì xếp dọc */
+.families {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: var(--gap-stack) var(--sp-lg);
+  text-align: center;
+}
+
+.family .eyebrow {
+  margin-bottom: var(--sp-xs);
+}
+
+.parents {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.parents li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.role {
+  font-family: var(--font-hand);
+  font-size: 1.05em;
+  color: var(--c-red-soft);
+}
+
+.parentName {
+  font-family: var(--font-display);
+  font-size: var(--fs-h4);
+  color: var(--fg-head);
+}
+
+.venue {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-2xs);
+  text-align: center;
+}
+
+.illustration {
+  width: min(100%, 30rem);
+  margin-bottom: var(--sp-sm);
+}
+
+.venue .eyebrow {
+  margin-bottom: var(--sp-2xs);
+}
+
+.venue .script {
+  margin-block: var(--sp-2xs) var(--sp-md);
+  max-width: 34ch;
+}
+
+/* ── Khoá cho tới khi ghép xong hình ở section Album ───────────────────── */
+
+.gate {
+  transition:
+    filter var(--t-slow) var(--ease-out),
+    opacity var(--t-slow) var(--ease-out);
+}
+
+.locked .gate {
+  filter: blur(9px) saturate(0.65);
+  opacity: 0.5;
+  /* Chỉ chặn chuột — bàn phím vẫn tab vào được và sẽ tự mở khoá */
+  pointer-events: none;
+  user-select: none;
+}
+
+.lockNote {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55em;
+  width: fit-content;
+  max-width: min(100%, 34ch);
+  margin: 0 auto var(--sp-xl);
+  padding: 0.7em 1.4em;
+  border: 1px dashed var(--rule);
+  border-radius: var(--r-pill);
+  background: rgba(255, 251, 239, 0.72);
+  font-family: var(--font-hand);
+  font-size: clamp(1.1rem, 0.92rem + 0.8vw, 1.45rem);
+  line-height: 1.3;
+  text-align: center;
+  text-wrap: balance;
+  color: var(--c-red);
+}
+
+.lockIcon {
+  font-size: 0.8em;
+  color: var(--c-gold);
+}

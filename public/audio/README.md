@@ -1,10 +1,12 @@
-# public/audio
+Bỏ file nhạc nền (mp3/m4a) vào thư mục này, rồi khai báo trong
+`src/data/wedding.ts`:
 
-`music.mp3` hiện là 8 giây im lặng — ảnh mẫu của âm thanh, để nút nhạc có cái
-mà phát khi dựng thử. Thay bằng bài của khách, giữ nguyên tên file.
+```ts
+export const music = {
+  src: "/audio/ten-file.mp3",
+  title: "Tên bài hát",
+};
+```
 
-Cấu hình ở `music` trong `content/client.ts`: `enabled: false` hoặc `src: ""`
-thì nút nhạc tự ẩn và trang vẫn chạy bình thường.
-
-Nhạc chỉ bật từ chính cú chạm "Mở thiệp" — trình duyệt trên điện thoại chặn
-mọi lần phát nhạc không sinh ra từ thao tác của người dùng.
+Để `src` rỗng thì nút bật/tắt nhạc tự ẩn. Nhạc bắt đầu ngay sau khi khách bấm
+"Print now" — đó là cú chạm đầu tiên nên trình duyệt cho phép phát.

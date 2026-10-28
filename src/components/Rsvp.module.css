@@ -1,0 +1,71 @@
+.form,
+.done {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-md);
+}
+
+.fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2xs);
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.5rem, 2vw, 1.25rem);
+  padding-top: var(--sp-2xs);
+}
+
+/* Hai chấm lấp lánh nhấp nháy hai bên nút gửi */
+.blink {
+  width: clamp(24px, 6vw, 42px);
+  flex: none;
+}
+
+.done {
+  align-items: center;
+  text-align: center;
+  gap: var(--sp-md);
+}
+
+.seal {
+  width: clamp(72px, 12vw, 104px);
+  animation: sealIn 700ms var(--ease-out) both;
+}
+
+@keyframes sealIn {
+  from {
+    opacity: 0;
+    scale: 1.5;
+    rotate: -18deg;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+    rotate: -6deg;
+  }
+}
+
+/* Năm lựa chọn số người — xếp ngang, tự xuống dòng khi hết chỗ */
+.counter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2xs);
+}
+
+.counter .choice__item {
+  flex: 0 1 auto;
+}
+
+/* Lời nhắn cuối form, không phải câu hỏi */
+.closing {
+  margin-top: calc(var(--sp-2xs) * -1);
+  text-align: center;
+  text-wrap: balance;
+}

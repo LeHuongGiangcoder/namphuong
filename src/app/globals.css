@@ -1,0 +1,1009 @@
+/* ==========================================================================
+   Quốc Anh & Diệp Khanh — Design System
+   Retro · Photobooth · Playful
+   --------------------------------------------------------------------------
+   Đọc theo thứ tự:
+     1. Tokens          – màu, typography, spacing, radius, shadow, motion
+     2. Reset & base    – nền, chữ mặc định, selection
+     3. Layout          – .section, .container, .stack, .section-head
+     4. Typography      – .display, .h1…h4, .eyebrow, .lead, .caption, .script
+     5. Buttons         – .btn, .btn--stamp, .btn--outline, .btn--ghost
+     6. Surfaces        – .sheet, .seal, .stamp, .chip
+     7. Form            – .field, .input, .textarea, .choice
+     8. Decor & motion  – .decor, .sway, .float, .wobble, .reveal
+     9. Utilities
+
+   Quy tắc: KHÔNG viết màu / khoảng cách thô trong component.
+   Luôn dùng token hoặc class ở file này.
+   ========================================================================== */
+
+/* ── 1. Tokens ─────────────────────────────────────────────────────────── */
+
+:root {
+  /* Palette */
+  --c-red: #810220;
+  --c-red-deep: #5c0117;
+  --c-red-soft: #a8354c;
+  --c-cream: #fffbef;
+  --c-beige: #f8f2e5;
+  --c-beige-deep: #ece1c9;
+  --c-ink: #43261d;
+  --c-ink-soft: #7a5c4e;
+  --c-gold: #c9a227;
+
+  /* Vai trò màu — được đảo lại bên trong .section--red */
+  --bg: var(--c-beige);
+  --fg: var(--c-ink);
+  --fg-muted: var(--c-ink-soft);
+  --fg-head: var(--c-red);
+  --rule: rgba(129, 2, 32, 0.18);
+  --surface: var(--c-cream);
+  --surface-edge: rgba(129, 2, 32, 0.16);
+
+  /*
+     Sọc vẽ bằng gradient chứ không lát ảnh: ảnh vải gốc chỉ có 28px cho một cặp
+     sọc nên phóng to lên là nhoè. Gradient thì nét ở mọi mật độ điểm ảnh, và
+     chỉnh bề rộng cột chỉ bằng một biến.
+  */
+  /*
+     Hạt giấy cũ. Sinh bằng feTurbulence trong data URI chứ không dùng file ảnh:
+     nét ở mọi mật độ điểm ảnh, không tốn thêm một lượt tải, và `stitchTiles`
+     lo phần ghép liền mạch.
+  */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23g)'/%3E%3C/svg%3E");
+
+  /*
+     Sọc = ảnh vải thật (public/background). Tile đã cắt đúng bội số chu kỳ sọc
+     và soi gương theo chiều dọc nên lặp kín cả hai chiều, không lộ mối nối.
+  */
+  --stripe-w: clamp(26px, 6vw, 42px);
+  --stripe-tile: calc(var(--stripe-w) * 8);
+  --stripe-red: url("/background/stripe-red.jpg");
+  --stripe-beige: url("/background/stripe-beige.jpg");
+
+  /* Typography */
+  --font-display: var(--font-fraunces), "Playfair Display", Georgia, serif;
+  --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-hand: var(--font-dancing), "Segoe Script", cursive;
+
+  --fs-display: clamp(3rem, 1.35rem + 7vw, 6.5rem);
+  --fs-h1: clamp(2.25rem, 1.25rem + 4.3vw, 4.25rem);
+  --fs-h2: clamp(1.75rem, 1.15rem + 2.6vw, 3rem);
+  --fs-h3: clamp(1.3rem, 1.08rem + 0.95vw, 1.85rem);
+  --fs-h4: clamp(1.0625rem, 0.98rem + 0.36vw, 1.25rem);
+  --fs-lead: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+  --fs-body: clamp(1rem, 0.97rem + 0.13vw, 1.0625rem);
+  --fs-sm: 0.9375rem;
+  --fs-xs: 0.8125rem;
+  --fs-eyebrow: 0.75rem;
+
+  --lh-tight: 0.94;
+  --lh-head: 1.12;
+  --lh-body: 1.65;
+
+  --ls-display: -0.02em;
+  --ls-head: -0.01em;
+  --ls-eyebrow: 0.22em;
+
+  /* Spacing — thang 4px */
+  --sp-3xs: 0.25rem;
+  --sp-2xs: 0.5rem;
+  --sp-xs: 0.75rem;
+  --sp-sm: 1rem;
+  --sp-md: 1.5rem;
+  --sp-lg: 2rem;
+  --sp-xl: 3rem;
+  --sp-2xl: 4rem;
+  --sp-3xl: 6rem;
+  --sp-4xl: 8rem;
+
+  /* Nhịp dọc chuẩn của một section */
+  --pad-block: clamp(4.5rem, 2rem + 8vw, 9rem);
+  --pad-inline: clamp(1.25rem, 0.4rem + 3.2vw, 3rem);
+  --gap-head: clamp(2.5rem, 1.2rem + 4vw, 4.5rem);
+  --gap-stack: clamp(1.5rem, 1rem + 1.6vw, 2.5rem);
+
+  /* Bề rộng */
+  --w-wide: 1180px;
+  --w-content: 940px;
+  --w-narrow: 620px;
+
+  /* Radius */
+  --r-xs: 4px;
+  --r-sm: 8px;
+  --r-md: 16px;
+  --r-lg: 26px;
+  --r-pill: 999px;
+
+  /* Shadow */
+  --sh-sm: 0 2px 8px -3px rgba(67, 38, 29, 0.3);
+  --sh-md: 0 10px 26px -14px rgba(67, 38, 29, 0.55);
+  --sh-lg: 0 26px 60px -28px rgba(67, 38, 29, 0.6);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-soft: cubic-bezier(0.4, 0.14, 0.3, 1);
+  --t-fast: 160ms;
+  --t-mid: 320ms;
+  --t-slow: 620ms;
+}
+
+/* ── 2. Reset & base ───────────────────────────────────────────────────── */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100dvh;
+  background-color: var(--c-beige);
+  background-image: var(--stripe-beige);
+  background-size: var(--stripe-tile) auto;
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  font-synthesis-weight: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img,
+picture,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+}
+
+::selection {
+  background: var(--c-red);
+  color: var(--c-cream);
+}
+
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+  border-radius: var(--r-xs);
+}
+
+/* ── 3. Layout ─────────────────────────────────────────────────────────── */
+
+.section {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  padding-block: var(--pad-block);
+  padding-inline: var(--pad-inline);
+}
+
+/* Vải be (mặc định) */
+.section--beige {
+  background-color: var(--c-beige);
+  background-image: var(--stripe-beige);
+  background-size: var(--stripe-tile) auto;
+}
+
+/* Vải be, sáng hơn một chút — dùng cho section cảm ơn */
+.section--beige-light {
+  background-color: var(--c-cream);
+  background-image: linear-gradient(rgba(255, 251, 239, 0.5), rgba(255, 251, 239, 0.5)),
+    var(--stripe-beige);
+  background-size: auto, var(--stripe-tile) auto;
+}
+
+/* Alias cũ — nay trùng với .section--beige vì sọc đã nằm sẵn trong ảnh vải */
+.section--stripe {
+  background-color: var(--c-beige);
+  background-image: var(--stripe-beige);
+  background-size: var(--stripe-tile) auto;
+}
+
+/* Vải đỏ — đảo toàn bộ vai trò màu */
+.section--red {
+  --bg: var(--c-red);
+  --fg: rgba(255, 251, 239, 0.86);
+  --fg-muted: rgba(255, 251, 239, 0.62);
+  --fg-head: var(--c-cream);
+  --rule: rgba(255, 251, 239, 0.22);
+  --surface: rgba(255, 251, 239, 0.07);
+  --surface-edge: rgba(255, 251, 239, 0.26);
+  background-color: var(--c-red);
+  background-image: var(--stripe-red);
+  background-size: var(--stripe-tile) auto;
+  color: var(--fg);
+}
+
+/* Alias cũ — sọc đã nằm sẵn trong ảnh vải */
+.section--red-stripe {
+  background-image: var(--stripe-red);
+  background-size: var(--stripe-tile) auto;
+}
+
+/* Vải đỏ, tối hơn một chút — dùng cho agenda */
+.section--red-deep {
+  background-color: var(--c-red-deep);
+  background-image: linear-gradient(rgba(92, 1, 23, 0.42), rgba(92, 1, 23, 0.42)),
+    var(--stripe-red);
+  background-size: auto, var(--stripe-tile) auto;
+}
+
+/*
+   Lớp hạt giấy cũ phủ lên nền vải. Để nhẹ tay vì ảnh vải đã có sẵn thớ dệt.
+   Nằm dưới nội dung (z-index -1, gói gọn trong section nhờ
+   `isolation: isolate`) nên chữ vẫn sắc nét.
+*/
+.section--grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: var(--grain);
+  /* Nền sáng: hạt tối đi (multiply) */
+  mix-blend-mode: multiply;
+  opacity: 0.12;
+  pointer-events: none;
+}
+
+/* Nền tối: multiply gần như không thấy gì, phải để hạt sáng lên (screen) */
+.section--red.section--grain::after {
+  mix-blend-mode: screen;
+  opacity: 0.1;
+}
+
+/* Đường chỉ mảnh phân cách hai section */
+.section + .section::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 1px;
+  background: rgba(67, 38, 29, 0.12);
+}
+
+.section--red + .section::before,
+.section + .section--red::before {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.container {
+  width: min(100%, var(--w-wide));
+  margin-inline: auto;
+}
+
+.container--content {
+  width: min(100%, var(--w-content));
+}
+
+.container--narrow {
+  width: min(100%, var(--w-narrow));
+}
+
+/* Khối tiêu đề chuẩn của mỗi section */
+.section-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--sp-md);
+  margin-bottom: var(--gap-head);
+}
+
+.section-head > * {
+  max-width: 34ch;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-stack);
+}
+
+.stack--sm {
+  gap: var(--sp-sm);
+}
+
+.stack--md {
+  gap: var(--sp-md);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-md);
+}
+
+.row--center {
+  justify-content: center;
+}
+
+/* ── 4. Typography ─────────────────────────────────────────────────────── */
+
+.display,
+.h1,
+.h2,
+.h3,
+.h4 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: var(--fg-head);
+  font-variation-settings: "SOFT" 28, "WONK" 1, "opsz" 96;
+  text-wrap: balance;
+}
+
+.display {
+  font-size: var(--fs-display);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-display);
+  font-variation-settings: "SOFT" 42, "WONK" 1, "opsz" 144;
+}
+
+.h1 {
+  font-size: var(--fs-h1);
+  line-height: var(--lh-head);
+  letter-spacing: var(--ls-head);
+}
+
+.h2 {
+  font-size: var(--fs-h2);
+  line-height: var(--lh-head);
+  letter-spacing: var(--ls-head);
+}
+
+.h3 {
+  font-size: var(--fs-h3);
+  line-height: 1.25;
+}
+
+.h4 {
+  font-size: var(--fs-h4);
+  line-height: 1.35;
+}
+
+.italic {
+  font-style: italic;
+}
+
+/* Nhãn nhỏ in hoa nằm trên tiêu đề */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7em;
+  font-size: var(--fs-eyebrow);
+  font-weight: 500;
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+
+.eyebrow::before,
+.eyebrow::after {
+  content: "";
+  width: 1.75rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.5;
+}
+
+.eyebrow--bare::before,
+.eyebrow--bare::after {
+  content: none;
+}
+
+/* Khoảng cách chuẩn giữa eyebrow → heading → body */
+.eyebrow + .display,
+.eyebrow + .h1,
+.eyebrow + .h2 {
+  margin-top: var(--sp-2xs);
+}
+
+.lead {
+  font-size: var(--fs-lead);
+  line-height: 1.6;
+  color: var(--fg-muted);
+  text-wrap: pretty;
+}
+
+.body {
+  color: var(--fg);
+  text-wrap: pretty;
+}
+
+.muted {
+  color: var(--fg-muted);
+}
+
+.caption {
+  font-size: var(--fs-xs);
+  letter-spacing: 0.06em;
+  color: var(--fg-muted);
+}
+
+/* Chữ viết tay nghiêng, dùng cho lời nhắn của cô dâu chú rể */
+.script {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-variation-settings: "SOFT" 60, "WONK" 1, "opsz" 60;
+  font-size: var(--fs-lead);
+  line-height: 1.55;
+  color: var(--fg-head);
+}
+
+/* Số to kiểu vé xem phim */
+.numeral {
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums lining-nums;
+  font-variation-settings: "SOFT" 20, "WONK" 0, "opsz" 144;
+  letter-spacing: -0.02em;
+}
+
+.rule {
+  width: 100%;
+  height: 1px;
+  border: 0;
+  background: var(--rule);
+}
+
+/* ── 5. Buttons ────────────────────────────────────────────────────────── */
+
+.btn {
+  --btn-bg: var(--c-red);
+  --btn-fg: var(--c-cream);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+  padding: 0.85em 1.9em;
+  border: 0;
+  border-radius: var(--r-pill);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    transform var(--t-fast) var(--ease-out),
+    box-shadow var(--t-fast) var(--ease-out),
+    background-color var(--t-fast) var(--ease-out);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn[disabled],
+.btn[aria-disabled="true"] {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn--outline {
+  background: transparent;
+  color: var(--fg-head);
+  box-shadow: inset 0 0 0 1.5px currentColor;
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--fg-head);
+  padding-inline: 0.6em;
+}
+
+.btn--ghost:hover {
+  text-decoration: underline;
+}
+
+.btn--lg {
+  font-size: var(--fs-lead);
+  padding: 1em 2.2em;
+}
+
+/*
+   Nút chủ đạo — thẻ bo góc, viền kem dày ở ngoài và một đường kẻ đứt ở trong,
+   hai bên là ngôi sao. Không đổ bóng.
+   Ngôi sao vẽ bằng ::before/::after nên trong JSX chỉ cần viết chữ.
+*/
+.btn--stamp {
+  position: relative;
+  gap: 0.9em;
+  padding: 0.95em 1.9em;
+  border: 3px solid var(--c-cream);
+  border-radius: 12px;
+  background: var(--c-red);
+  color: var(--c-cream);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: clamp(0.8125rem, 0.74rem + 0.36vw, 1rem);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  /* Viền kem đặt trên nền be sẽ chìm, nên kẻ thêm một nét đỏ mảnh bao ngoài */
+  box-shadow: 0 0 0 1.5px var(--c-red);
+}
+
+/* Đường kẻ đứt bên trong */
+.btn--stamp::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1.5px dashed rgba(255, 251, 239, 0.55);
+  border-radius: 6px;
+  pointer-events: none;
+}
+
+.btn--stamp::after {
+  content: none;
+}
+
+.btn__star {
+  font-size: 0.85em;
+  line-height: 1;
+  opacity: 0.9;
+  transition: transform var(--t-mid) var(--ease-out);
+}
+
+.btn--stamp:hover {
+  transform: translateY(-2px);
+}
+
+.btn--stamp:hover .btn__star {
+  transform: rotate(72deg);
+}
+
+.btn--stamp:active {
+  transform: translateY(1px);
+}
+
+.btn__arrow {
+  display: inline-block;
+  font-style: normal;
+  transition: transform var(--t-mid) var(--ease-out);
+}
+
+.btn:hover .btn__arrow {
+  transform: translateX(4px);
+}
+
+/* Trong section đỏ, nút viền đổi sang kem */
+.section--red .btn--outline {
+  color: var(--c-cream);
+}
+
+.section--red .sheet .btn--outline {
+  color: var(--c-red);
+}
+
+/* Nút chủ đạo nằm trên nền đỏ: đảo màu để không chìm vào nền */
+.section--red > * .btn--stamp {
+  background: var(--c-cream);
+  color: var(--c-red);
+  border-color: var(--c-red);
+  box-shadow: 0 0 0 1.5px var(--c-cream);
+}
+
+.section--red > * .btn--stamp::before {
+  border-color: rgba(129, 2, 32, 0.45);
+}
+
+/* …trừ khi nó nằm trong tấm giấy kem, lúc đó quay lại nền đỏ */
+.section--red .sheet .btn--stamp {
+  background: var(--c-red);
+  color: var(--c-cream);
+  border-color: var(--c-cream);
+}
+
+.section--red .sheet .btn--stamp::before {
+  border-color: rgba(255, 251, 239, 0.55);
+}
+
+/* ── 6. Surfaces ───────────────────────────────────────────────────────── */
+
+/*
+   Tấm giấy hình con tem — mép răng cưa cắt bằng CSS mask nên co giãn theo mọi
+   chiều cao nội dung, không cần ảnh khung.
+
+   Bốn lớp mask là bốn hàng lỗ tròn (trên, dưới, trái, phải); `mask-composite:
+   intersect` giao chúng lại thành một hình duy nhất. Vì mask cắt cả phần con
+   nằm tràn ra ngoài nên mọi thứ trang trí (con dấu, nơ…) phải đặt BÊN TRONG
+   vùng padding, đừng cho thò ra mép.
+
+   Nó cũng tự đặt lại toàn bộ vai trò màu về ngữ cảnh sáng, nên dùng được cả
+   trên nền đỏ lẫn nền be: heading, nút, input bên trong tự ăn đúng màu.
+*/
+.sheet {
+  --fg: var(--c-ink);
+  --fg-muted: var(--c-ink-soft);
+  --fg-head: var(--c-red);
+  --rule: rgba(129, 2, 32, 0.2);
+  --surface: var(--c-cream);
+  --surface-edge: rgba(129, 2, 32, 0.2);
+  /* --tooth: bước răng cưa · --bite: bán kính mỗi lỗ */
+  --tooth: clamp(20px, 4.5vw, 30px);
+  --bite: calc(var(--tooth) * 0.34);
+  position: relative;
+  padding: clamp(2rem, 1.2rem + 4vw, 4.25rem) clamp(1.5rem, 0.8rem + 3.5vw, 4rem);
+  background: var(--c-cream);
+  color: var(--fg);
+  -webkit-mask:
+    radial-gradient(var(--bite) at 50% 0, #0000 98%, #000) 50% 0 / var(--tooth) 100% repeat-x,
+    radial-gradient(var(--bite) at 50% 100%, #0000 98%, #000) 50% 100% / var(--tooth) 100% repeat-x,
+    radial-gradient(var(--bite) at 0 50%, #0000 98%, #000) 0 50% / 100% var(--tooth) repeat-y,
+    radial-gradient(var(--bite) at 100% 50%, #0000 98%, #000) 100% 50% / 100% var(--tooth) repeat-y;
+  -webkit-mask-composite: source-in;
+  mask:
+    radial-gradient(var(--bite) at 50% 0, #0000 98%, #000) 50% 0 / var(--tooth) 100% repeat-x,
+    radial-gradient(var(--bite) at 50% 100%, #0000 98%, #000) 50% 100% / var(--tooth) 100% repeat-x,
+    radial-gradient(var(--bite) at 0 50%, #0000 98%, #000) 0 50% / 100% var(--tooth) repeat-y,
+    radial-gradient(var(--bite) at 100% 50%, #0000 98%, #000) 100% 50% / 100% var(--tooth) repeat-y;
+  mask-composite: intersect;
+}
+
+/* Trình duyệt cũ không ghép được mask thì cho ra tấm giấy bo góc bình thường */
+@supports not ((mask-composite: intersect) or (-webkit-mask-composite: source-in)) {
+  .sheet {
+    -webkit-mask: none;
+    mask: none;
+    border-radius: var(--r-md);
+  }
+}
+
+/* Đường viền mảnh chạy vòng bên trong mép răng cưa */
+.sheet::before {
+  content: "";
+  position: absolute;
+  inset: clamp(0.75rem, 2.5vw, 1.5rem);
+  border: 1px solid rgba(129, 2, 32, 0.3);
+  pointer-events: none;
+}
+
+/* Viên chọn bên trong tấm giấy: nền đỏ đặc khi được chọn */
+.sheet .choice__item input:checked + span {
+  background: var(--c-red);
+  color: var(--c-cream);
+  box-shadow: inset 0 0 0 2px var(--c-red);
+}
+
+/* Con dấu sáp đóng ở đầu tấm giấy, kéo lên gần sát mép răng cưa */
+.seal {
+  display: block;
+  width: clamp(56px, 13vw, 88px);
+  margin: clamp(-2.5rem, -3.5vw, -1.25rem) auto 0;
+  rotate: -6deg;
+}
+
+/* Khung tem thư bọc quanh ảnh */
+.stamp {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1989 / 2512;
+}
+
+/* Lỗ trong của khung tem, đo trực tiếp từ file 39.png */
+.stamp__photo {
+  position: absolute;
+  left: 8.04%;
+  top: 6.41%;
+  width: 84.52%;
+  height: 88.18%;
+  object-fit: cover;
+  background: var(--c-beige-deep);
+}
+
+.stamp__frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  padding: 0.35em 0.9em;
+  border-radius: var(--r-pill);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-head);
+  box-shadow: inset 0 0 0 1px var(--surface-edge);
+}
+
+/* ── 7. Form ───────────────────────────────────────────────────────────── */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2xs);
+}
+
+.label {
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+
+.input,
+.textarea,
+.select {
+  width: 100%;
+  padding: 0.8em 1em;
+  border: 0;
+  border-radius: var(--r-sm);
+  background: var(--c-cream);
+  color: var(--c-ink);
+  box-shadow: inset 0 0 0 1.5px rgba(129, 2, 32, 0.2);
+  transition: box-shadow var(--t-fast) var(--ease-out);
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: rgba(122, 92, 78, 0.6);
+}
+
+.input:focus,
+.textarea:focus,
+.select:focus {
+  outline: none;
+  box-shadow: inset 0 0 0 2px var(--c-red);
+}
+
+.textarea {
+  min-height: 7.5rem;
+  resize: vertical;
+}
+
+.input[aria-invalid="true"],
+.textarea[aria-invalid="true"] {
+  box-shadow: inset 0 0 0 2px var(--c-red-soft);
+}
+
+.error {
+  font-size: var(--fs-xs);
+  color: var(--c-cream);
+  background: var(--c-red-soft);
+  border-radius: var(--r-xs);
+  padding: 0.2em 0.6em;
+  align-self: flex-start;
+}
+
+/* Radio / checkbox dạng viên thuốc */
+.choice {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2xs);
+}
+
+.choice__item {
+  position: relative;
+}
+
+.choice__item input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  margin: 0;
+}
+
+.choice__item span {
+  display: block;
+  padding: 0.6em 1.3em;
+  border-radius: var(--r-pill);
+  font-size: var(--fs-sm);
+  color: var(--fg);
+  box-shadow: inset 0 0 0 1.5px var(--surface-edge);
+  transition:
+    background-color var(--t-fast) var(--ease-out),
+    color var(--t-fast) var(--ease-out),
+    box-shadow var(--t-fast) var(--ease-out);
+}
+
+.choice__item input:checked + span {
+  background: var(--c-cream);
+  color: var(--c-red);
+  box-shadow: inset 0 0 0 2px var(--c-cream);
+}
+
+.choice__item input:focus-visible + span {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+/* ── 8. Decor & motion ─────────────────────────────────────────────────── */
+
+/*
+   Hoạ tiết trang trí. Đặt bằng biến --x / --y / --w / --r trên inline style,
+   không cần viết CSS mới cho từng cái.
+
+   Luôn nằm ở lớp trên cùng của section — `pointer-events: none` để nó không
+   chặn thao tác của phần nội dung bên dưới. `.section` có `isolation: isolate`
+   nên hoạ tiết không bao giờ tràn sang section khác.
+*/
+.decor {
+  position: absolute;
+  left: var(--x, 50%);
+  top: var(--y, 50%);
+  z-index: 5;
+  width: var(--w, 120px);
+  rotate: var(--r, 0deg);
+  opacity: var(--o, 1);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Một số hoạ tiết chỉ nên xuất hiện từ tablet trở lên cho đỡ rối */
+@media (max-width: 40rem) {
+  .decor--desktop {
+    display: none;
+  }
+}
+
+@keyframes sway {
+  0%,
+  100% {
+    transform: rotate(-2.4deg) translateY(0);
+  }
+  50% {
+    transform: rotate(2.4deg) translateY(-6px);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes wobble {
+  0%,
+  100% {
+    transform: rotate(-4deg) scale(1);
+  }
+  50% {
+    transform: rotate(4deg) scale(1.03);
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.88);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.sway,
+.float,
+.wobble,
+.twinkle {
+  animation-duration: var(--dur, 6s);
+  animation-delay: var(--delay, 0s);
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+
+.sway {
+  animation-name: sway;
+}
+.float {
+  animation-name: float;
+}
+.wobble {
+  animation-name: wobble;
+}
+.twinkle {
+  animation-name: twinkle;
+}
+
+/*
+   Hiện dần khi cuộn tới.
+   Bọc trong @media (scripting: enabled): trình duyệt tắt JavaScript sẽ bỏ qua
+   khối này và thấy nội dung ngay — thiệp cưới không bao giờ được phép trắng trang.
+*/
+@media (scripting: enabled) {
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity var(--t-slow) var(--ease-out),
+      transform var(--t-slow) var(--ease-out);
+    transition-delay: var(--delay, 0s);
+  }
+
+  .reveal.is-in {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ── 9. Utilities ──────────────────────────────────────────────────────── */
+
+.center {
+  text-align: center;
+}
+
+.mx-auto {
+  margin-inline: auto;
+}
+
+.relative {
+  position: relative;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Reduced motion ────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}

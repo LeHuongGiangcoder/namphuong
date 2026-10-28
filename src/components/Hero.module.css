@@ -1,0 +1,413 @@
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100svh;
+  padding-block: clamp(1.5rem, 0.5rem + 3vw, 3rem) clamp(2.5rem, 1.5rem + 2vw, 3.5rem);
+}
+
+.top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-2xs);
+  margin-bottom: clamp(0.75rem, 0.35rem + 1.2vw, 1.5rem);
+}
+
+.monogram {
+  display: flex;
+  align-items: center;
+  gap: 0.35em;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.25rem);
+  font-variation-settings: "SOFT" 60, "WONK" 1, "opsz" 72;
+  color: var(--c-cream);
+  line-height: 1;
+}
+
+/* Chiếc nơ nhỏ xíu đeo cạnh monogram */
+.monogramBow {
+  width: clamp(30px, 5vw, 46px);
+  opacity: 0.9;
+}
+
+/*
+   Cụm máy in.
+   Mọi kích thước suy ra từ --stage-w nên không bao giờ lệch:
+     · máy in  1600 × 368  → cao = w * 0.23
+     · tâm rãnh đen nằm ở 54,3% chiều cao máy in → w * 0.1249
+     · ảnh rộng 64% khung, khung tem 1989 × 2512 → cao = w * 0.808
+   Ảnh nằm ĐÈ LÊN thân máy (z-index cao hơn) nên trông đúng như tờ giấy vừa
+   trườn ra khỏi khe đen rồi rủ xuống trước mặt máy.
+*/
+.stage {
+  --stage-w: min(560px, 92vw, 46svh);
+  --photo-h: calc(var(--stage-w) * 0.808);
+  --slot-y: calc(var(--stage-w) * 0.1249);
+  position: relative;
+  width: var(--stage-w);
+  /* Lúc chưa in chỉ chừa đủ chỗ cho nút, in xong mới nở ra bằng chiều cao ảnh */
+  height: calc(var(--slot-y) + var(--stage-w) * 0.56);
+  transition: height 2200ms var(--ease-soft);
+}
+
+.printing .stage,
+.done .stage {
+  height: calc(var(--slot-y) + var(--photo-h));
+}
+
+.printer {
+  position: absolute;
+  z-index: 1;
+  inset-inline: 0;
+  top: 0;
+  width: 100%;
+  filter: drop-shadow(0 14px 22px rgba(0, 0, 0, 0.3));
+  transform-origin: 50% 40%;
+}
+
+.printing .printer {
+  animation: rumble 0.16s linear infinite;
+}
+
+@keyframes rumble {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate3d(-1.5px, 0.5px, 0) rotate(-0.12deg);
+  }
+  75% {
+    transform: translate3d(1.5px, -0.5px, 0) rotate(0.12deg);
+  }
+}
+
+.slot {
+  position: absolute;
+  z-index: 2;
+  top: var(--slot-y);
+  left: 50%;
+  translate: -50% 0;
+  width: 64%;
+  height: 0;
+  overflow: hidden;
+  transition: height 2200ms var(--ease-soft);
+}
+
+.printing .slot,
+.done .slot {
+  height: var(--photo-h);
+}
+
+/* In xong thì bỏ cắt để bóng đổ và động tác đung đưa không bị xén */
+.done .slot {
+  overflow: visible;
+}
+
+/* Vệt tối ngay mép khe, để tấm ảnh trông như vẫn còn cắm trong máy */
+.slot::after {
+  content: "";
+  position: absolute;
+  z-index: 3;
+  inset-inline: 0;
+  top: 0;
+  height: 16px;
+  background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0));
+  pointer-events: none;
+}
+
+.photo {
+  width: 100%;
+  transform: translateY(-100%);
+  transition: transform 2200ms var(--ease-soft);
+  filter: drop-shadow(0 16px 22px rgba(0, 0, 0, 0.38));
+}
+
+.printing .photo,
+.done .photo {
+  transform: translateY(0);
+}
+
+.done .photo {
+  transform-origin: 50% 0;
+  animation: dangle 5s ease-in-out 500ms infinite;
+}
+
+@keyframes dangle {
+  0%,
+  100% {
+    rotate: -0.7deg;
+  }
+  50% {
+    rotate: 0.7deg;
+  }
+}
+
+/* Nút Print now — nằm đè vào đúng chỗ ảnh sắp chui ra */
+.cta {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  top: calc(var(--stage-w) * 0.34);
+  translate: -50% 0;
+  width: max-content;
+  max-width: 86vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-sm);
+  transition:
+    opacity 320ms var(--ease-out),
+    transform 320ms var(--ease-out);
+}
+
+.printing .cta,
+.done .cta {
+  opacity: 0;
+  transform: translateY(10px) scale(0.96);
+  pointer-events: none;
+}
+
+.hint {
+  font-size: var(--fs-xs);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 251, 239, 0.72);
+}
+
+/* Chỗ dành cho tên: thu về 0 khi chưa in, nở ra khi in xong */
+.after {
+  display: grid;
+  grid-template-rows: 0fr;
+  width: 100%;
+  transition: grid-template-rows 900ms var(--ease-out) 150ms;
+}
+
+.done .after {
+  grid-template-rows: 1fr;
+}
+
+.afterInner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/*
+   Lời chào riêng cho khách có link mời. Hiện cùng nhịp với tên hai đứa nhưng
+   sớm hơn một chút, để mắt đọc "Dear …" trước rồi mới tới tên cô dâu chú rể.
+*/
+.dear {
+  font-family: var(--font-hand);
+  font-size: clamp(1.15rem, 0.95rem + 0.9vw, 1.65rem);
+  line-height: 1.2;
+  text-align: center;
+  color: rgba(255, 251, 239, 0.9);
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 800ms var(--ease-out) 60ms,
+    transform 800ms var(--ease-out) 60ms;
+}
+
+.done .dear {
+  opacity: 1;
+  transform: none;
+}
+
+/* Dòng thứ hai, nhỏ và nhạt hơn — nối thẳng xuống tên hai đứa ngay bên dưới */
+.invite {
+  display: block;
+  margin-top: 0.15em;
+  font-family: var(--font-body);
+  font-size: clamp(0.8125rem, 0.75rem + 0.3vw, 0.9375rem);
+  letter-spacing: 0.02em;
+  color: rgba(255, 251, 239, 0.66);
+}
+
+/* Tên hai đứa — chỉ hiện sau khi in xong */
+.names {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(0.15rem, 0.05rem + 0.5vw, 0.6rem);
+  margin-top: clamp(1.25rem, 0.5rem + 2vw, 2.25rem);
+  text-align: center;
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 900ms var(--ease-out) 150ms,
+    transform 900ms var(--ease-out) 150ms;
+}
+
+.done .names {
+  opacity: 1;
+  transform: none;
+}
+
+.name {
+  font-family: var(--font-display);
+  /* Tên chú rể nằm trong <h1> nên trình duyệt tự bôi đậm — ép về cùng nét với tên cô dâu */
+  font-weight: 400;
+  /* Cỡ chữ còn bị chặn theo chiều cao màn hình để hero không tràn khung */
+  font-size: min(var(--fs-display), 9svh);
+  line-height: 0.9;
+  letter-spacing: -0.025em;
+  color: var(--c-cream);
+  font-variation-settings: "SOFT" 42, "WONK" 1, "opsz" 144;
+}
+
+.amp {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: min(clamp(1.5rem, 0.9rem + 2.8vw, 3rem), 5svh);
+  line-height: 1;
+  color: rgba(255, 251, 239, 0.72);
+  font-variation-settings: "SOFT" 70, "WONK" 1, "opsz" 72;
+}
+
+.ampSparkle {
+  width: clamp(14px, 2.4vw, 24px);
+  opacity: 0.7;
+}
+
+.dateline {
+  margin-top: var(--sp-sm);
+  display: flex;
+  align-items: center;
+  gap: 0.9em;
+  font-size: var(--fs-xs);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 251, 239, 0.72);
+}
+
+.dateline i {
+  display: block;
+  width: 1.75rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.5;
+}
+
+.scrollCue {
+  margin-top: clamp(0.75rem, 0.3rem + 1.4vw, 1.5rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font-size: var(--fs-xs);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 251, 239, 0.72);
+  opacity: 0;
+  transition: opacity 700ms var(--ease-out) 800ms;
+}
+
+.done .scrollCue {
+  opacity: 1;
+}
+
+.scrollCue::after {
+  content: "";
+  width: 1px;
+  height: 2.25rem;
+  background: currentColor;
+  transform-origin: top;
+  animation: drip 2.4s ease-in-out infinite;
+}
+
+@keyframes drip {
+  0%,
+  100% {
+    transform: scaleY(0.35);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+/* Nút bật/tắt nhạc */
+.music {
+  position: fixed;
+  right: clamp(1rem, 3vw, 2rem);
+  bottom: clamp(1rem, 3vw, 2rem);
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border: 0;
+  border-radius: var(--r-pill);
+  background: var(--c-cream);
+  color: var(--c-red);
+  cursor: pointer;
+  box-shadow: 0 0 0 3px var(--c-red);
+  transition: transform var(--t-fast) var(--ease-out);
+}
+
+.music:hover {
+  transform: scale(1.06);
+}
+
+.musicBars {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 14px;
+}
+
+.musicBars i {
+  display: block;
+  width: 2.5px;
+  height: 40%;
+  border-radius: 1px;
+  background: currentColor;
+}
+
+.playing .musicBars i {
+  animation: eq 900ms ease-in-out infinite;
+}
+
+.musicBars i:nth-child(2) {
+  animation-delay: 150ms;
+}
+
+.musicBars i:nth-child(3) {
+  animation-delay: 300ms;
+}
+
+.musicBars i:nth-child(4) {
+  animation-delay: 80ms;
+}
+
+@keyframes eq {
+  0%,
+  100% {
+    height: 35%;
+  }
+  50% {
+    height: 100%;
+  }
+}
+
+/* Màn hình quá thấp thì bỏ gợi ý cuộn cho đỡ chật */
+@media (max-height: 620px) {
+  .scrollCue {
+    display: none;
+  }
+}

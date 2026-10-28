@@ -1,0 +1,169 @@
+/*
+   Dải phim kéo ngang.
+
+   Mỗi ô là một lần lặp của /art/film-frame.webp — file này được cắt từ
+   components/54.png đúng giữa hai vách ngăn, nên xếp liên tiếp thì hàng lỗ răng
+   cưa chạy liền mạch, không lộ mối nối. Các con số phần trăm bên dưới đo thẳng
+   từ file: khung 821×767, ô ảnh nằm ở (39, 120) rộng 742 cao 528.
+*/
+
+.reel {
+  --fh: clamp(150px, 8rem + 16vw, 290px);
+  --can-x: calc(var(--pad-inline) * 0.5);
+  /*
+     Hộp phim rộng 0.98× chiều cao dải phim; mép phải của nó đã có sẵn một mẩu
+     phim đen. Ô đầu tiên bắt đầu ngay chỗ mẩu đó kết thúc, nên nhìn như phim
+     đang nhả ra từ miệng hộp mà không che mất ảnh.
+  */
+  --can-w: calc(var(--can-x) + var(--fh) * 0.93);
+
+  position: relative;
+  /* Tràn hết bề ngang section — cuộn phim bị bo lề thì mất cảm giác dài vô tận */
+  margin-inline: calc(var(--pad-inline) * -1);
+  margin-top: var(--gap-head);
+}
+
+.track {
+  display: flex;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  scroll-padding-left: var(--can-w);
+  padding-left: var(--can-w);
+  padding-right: var(--pad-inline);
+  scrollbar-width: none;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+.track:focus-visible {
+  outline: 2px solid var(--c-red);
+  outline-offset: -2px;
+}
+
+.frame {
+  position: relative;
+  flex: 0 0 auto;
+  height: var(--fh);
+  aspect-ratio: 821 / 767;
+  margin: 0;
+  scroll-snap-align: center;
+}
+
+.photo {
+  position: absolute;
+  left: 4.75%;
+  top: 15.65%;
+  width: 90.38%;
+  height: 68.84%;
+  object-fit: cover;
+  background: var(--c-beige-deep);
+}
+
+.film {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/*
+   Hộp phim đứng yên, dải phim chạy phía sau như đang cuộn vào trong. Kéo được
+   một đoạn rồi thì hộp trượt hẳn ra ngoài mép trái — nó đã làm xong việc giới
+   thiệu, giờ nhường cả bề ngang cho ảnh. `.section` có `overflow: clip` nên
+   phần trượt ra ngoài bị cắt gọn, không đội bề ngang trang.
+*/
+.can {
+  position: absolute;
+  z-index: 2;
+  left: var(--can-x);
+  top: calc(var(--fh) * -0.291);
+  height: calc(var(--fh) * 1.4925);
+  width: auto;
+  pointer-events: none;
+  filter: drop-shadow(0 10px 18px rgba(67, 38, 29, 0.35));
+  transition: translate 700ms var(--ease-out);
+}
+
+/* Dịch cả bề ngang của hộp cộng khoảng cách tới mép trái là ra hẳn ngoài */
+.reel[data-can-out] .can {
+  translate: calc(-100% - var(--can-x)) 0;
+}
+
+/* Mép phải nhoè dần — dấu hiệu còn ảnh ở phía sau */
+.fade {
+  position: absolute;
+  z-index: 1;
+  inset-block: 0;
+  right: 0;
+  width: clamp(28px, 7vw, 64px);
+  background: linear-gradient(90deg, transparent, var(--c-cream));
+  pointer-events: none;
+}
+
+/* Trò ghép hình đứng riêng một nhịp, không dính vào dải phim */
+.puzzle {
+  margin-top: var(--sp-3xl);
+}
+
+/* ── Gợi ý vuốt ────────────────────────────────────────────────────────── */
+
+.hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  margin-top: var(--sp-md);
+  font-family: var(--font-hand);
+  font-size: clamp(1.05rem, 0.9rem + 0.7vw, 1.35rem);
+  color: var(--c-red-soft);
+  transition:
+    opacity var(--t-med) var(--ease-out),
+    visibility var(--t-med);
+}
+
+/* Vuốt rồi thì thôi, không nhắc nữa */
+.hint[data-done] {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.arrow {
+  font-family: var(--font-body);
+  animation: nudge 1.6s var(--ease-out) infinite;
+}
+
+@keyframes nudge {
+  0%,
+  60%,
+  100% {
+    transform: translateX(0);
+  }
+  30% {
+    transform: translateX(0.35em);
+  }
+}
+
+@media (max-width: 560px) {
+  /*
+     Màn hẹp mà để nguyên hộp phim thì nó chiếm mất nửa bề ngang, chỉ còn chỗ
+     cho đúng một ô ảnh. Cho hộp thò ra ngoài mép trái để nhường chỗ cho phim.
+  */
+  .reel {
+    --can-x: calc(var(--fh) * -0.28);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arrow {
+    animation: none;
+  }
+
+  /* Vẫn nhường chỗ cho dải phim, chỉ bỏ đoạn trượt */
+  .can {
+    transition: none;
+  }
+}

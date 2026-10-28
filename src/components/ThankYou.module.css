@@ -1,0 +1,84 @@
+/*
+   Ba nhóm nội dung: lời cảm ơn, cả nhà đứng chào, rồi hashtag khép lại.
+   Trong mỗi nhóm khoảng cách để chặt, giữa các nhóm mới nới ra. Trước đây
+   section dùng .stack nên bốn khối cách nhau đều một khoảng, mắt không gom
+   được thành nhóm và nội dung trông rời rạc.
+*/
+
+.body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Lời nhắn nằm ngay dưới tiêu đề, đọc như một khối chữ liền */
+.head {
+  margin-bottom: var(--sp-md);
+}
+
+.words {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-sm);
+  max-width: 42ch;
+  text-align: center;
+}
+
+.words .script {
+  margin-top: var(--sp-2xs);
+}
+
+/* Cả nhà: hai đứa một hàng, ba bé mèo một hàng nhỏ hơn ở dưới */
+.crew {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(0.35rem, 0.15rem + 0.9vw, 0.75rem);
+  /*
+     Nhịp nghỉ lớn duy nhất của section, tách hẳn phần chữ với phần tranh. Phải
+     gấp đôi những khoảng hở trong nhóm thì mắt mới gom được thành hai cụm —
+     --gap-head chỉ hơn có vài pixel nên không đủ.
+  */
+  margin-top: clamp(3rem, 1.6rem + 5.5vw, 5.5rem);
+}
+
+.crewRow {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: clamp(0.5rem, 0.2rem + 1.6vw, 1.75rem);
+}
+
+.member {
+  width: var(--size, 90px);
+  transform-origin: 50% 85%;
+}
+
+.human {
+  --size: clamp(104px, 26vw, 168px);
+}
+
+.cat {
+  --size: clamp(58px, 15vw, 96px);
+}
+
+/* Chú thích tên mèo dính liền hàng mèo, không đứng thành một dòng riêng lẻ */
+.cats {
+  margin-top: var(--sp-2xs);
+  text-align: center;
+}
+
+/* Câu khép lại — gần cả nhà hơn là gần mép dưới section */
+.sign {
+  margin-top: var(--sp-lg);
+}
+
+.hashtag {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--fs-h3);
+  font-variation-settings: "SOFT" 60, "WONK" 1, "opsz" 72;
+  text-align: center;
+  color: var(--fg-head);
+}

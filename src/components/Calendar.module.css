@@ -1,0 +1,364 @@
+/*
+   Tờ lịch phóng to quanh ngày cưới — kiểu sổ lò xo dán ảnh.
+   Bố cục: 3 cột (ba ngày cuối trước giờ G) × 2 hàng (tuần trước / tuần cưới).
+   Ô cuối cùng là ngày cưới, lót vải đỏ để hút mắt.
+*/
+
+.pad {
+  --ring-w: clamp(9px, 1.9vw, 14px);
+  --ring-h: clamp(24px, 5vw, 38px);
+  --paper: #fdfaf1;
+  --rings: 11;
+  --line: rgba(129, 2, 32, 0.16);
+
+  position: relative;
+  width: min(100%, 34rem);
+  margin: calc(var(--ring-h) * 0.55) auto 0;
+  padding-top: calc(var(--ring-h) * 0.45);
+}
+
+/* ── Gáy lò xo ─────────────────────────────────────────────────────────── */
+
+.rings {
+  position: absolute;
+  z-index: 2;
+  inset-inline: 7%;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.rings i {
+  width: var(--ring-w);
+  height: var(--ring-h);
+  border-radius: var(--r-pill);
+  /* Ánh kim: tối ở hai mép, sáng lệch về bên trái như nguồn sáng chếch */
+  background: linear-gradient(
+    90deg,
+    #8a8474 0%,
+    #d9d4c7 28%,
+    #fffdf7 44%,
+    #b8b2a3 72%,
+    #7b7565 100%
+  );
+  box-shadow:
+    0 1px 2px rgba(67, 38, 29, 0.35),
+    inset 0 0 0 0.5px rgba(67, 38, 29, 0.25);
+}
+
+/* ── Tờ giấy ───────────────────────────────────────────────────────────── */
+
+.page {
+  position: relative;
+  padding: clamp(1.5rem, 1rem + 2.4vw, 2.6rem) clamp(1rem, 0.6rem + 2vw, 1.9rem)
+    clamp(1.1rem, 0.8rem + 1.6vw, 1.8rem);
+  background: var(--paper);
+  border-radius: 3px;
+  box-shadow:
+    0 1px 0 rgba(67, 38, 29, 0.14),
+    0 14px 30px -18px rgba(67, 38, 29, 0.5);
+}
+
+/* ── Đầu trang ─────────────────────────────────────────────────────────── */
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.4rem var(--sp-sm);
+  padding-bottom: 0.7rem;
+  margin-bottom: clamp(0.75rem, 0.5rem + 1vw, 1.15rem);
+  border-bottom: 3px double var(--line);
+}
+
+.month {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.35rem, 0.95rem + 1.8vw, 2.1rem);
+  line-height: 1;
+  letter-spacing: -0.015em;
+  color: var(--c-ink);
+  font-variation-settings: "SOFT" 12, "WONK" 0, "opsz" 72;
+}
+
+.year {
+  font-weight: 400;
+  font-style: italic;
+  color: var(--c-red);
+}
+
+.headHand {
+  font-family: var(--font-hand);
+  font-size: clamp(1.05rem, 0.9rem + 0.7vw, 1.4rem);
+  line-height: 1;
+  color: var(--c-red-soft);
+}
+
+/* ── Lưới ngày ─────────────────────────────────────────────────────────── */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.dow {
+  padding: 0 0.5rem 0.5rem;
+  font-size: var(--fs-xs);
+  letter-spacing: 0.06em;
+  color: var(--c-ink-soft);
+  text-align: center;
+  margin-bottom: 0.15rem;
+}
+
+.cell {
+  position: relative;
+  min-height: clamp(6.5rem, 4rem + 15vw, 10rem);
+  padding: 0.45rem 0.55rem;
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+
+/* Hàng trên chỉ là ngữ cảnh — số ngày để nhạt */
+.quiet .num {
+  color: rgba(122, 92, 78, 0.45);
+}
+
+.num {
+  font-family: var(--font-display);
+  font-size: clamp(0.95rem, 0.85rem + 0.5vw, 1.25rem);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  color: var(--c-ink);
+}
+
+/* ── Ghi chú viết tay ──────────────────────────────────────────────────── */
+
+.note {
+  position: absolute;
+  left: 0.5rem;
+  right: 0.5rem;
+  bottom: 0.6rem;
+  font-family: var(--font-hand);
+  font-size: clamp(0.95rem, 0.82rem + 0.55vw, 1.25rem);
+  line-height: 1.15;
+  color: var(--c-red);
+  rotate: -3deg;
+}
+
+.noteA {
+  top: 2.2rem;
+  bottom: auto;
+  rotate: 4deg;
+  color: var(--c-ink-soft);
+}
+
+/* ── Ảnh dán ───────────────────────────────────────────────────────────── */
+
+/* Tấm chính: khung polaroid, dán nghiêng, tràn ra khỏi ô một chút */
+.polaroid {
+  position: absolute;
+  z-index: 1;
+  left: 17%;
+  top: 1.7rem;
+  width: 76%;
+  margin: 0;
+  padding: 5% 5% 16%;
+  background: var(--c-cream);
+  rotate: -5deg;
+  box-shadow: 0 6px 14px -6px rgba(67, 38, 29, 0.55);
+}
+
+.polaroid img:last-child,
+.snap img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+.tape {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: -12%;
+  width: 56%;
+  translate: -50% 0;
+  rotate: 3deg;
+  opacity: 0.9;
+}
+
+/* Tấm phụ: ảnh trần, không khung */
+.snap {
+  position: absolute;
+  z-index: 1;
+  right: 6%;
+  top: 1.8rem;
+  width: 64%;
+  margin: 0;
+  rotate: 6deg;
+  box-shadow: 0 6px 14px -8px rgba(67, 38, 29, 0.6);
+}
+
+.sparkle {
+  position: absolute;
+  right: 8%;
+  bottom: 8%;
+  width: clamp(20px, 5vw, 34px);
+  opacity: 0.8;
+}
+
+.bow {
+  position: absolute;
+  left: 6%;
+  top: 1.8rem;
+  width: clamp(34px, 9vw, 62px);
+  rotate: -8deg;
+  opacity: 0.9;
+}
+
+.star {
+  position: absolute;
+  z-index: 1;
+  width: clamp(9px, 2.2vw, 14px);
+  aspect-ratio: 1;
+  background: currentColor;
+  color: var(--c-red-soft);
+  clip-path: polygon(
+    50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%,
+    50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%
+  );
+}
+
+.starA {
+  right: 12%;
+  top: 0.6rem;
+}
+
+.starB {
+  left: 9%;
+  bottom: 1.9rem;
+  color: var(--c-gold);
+}
+
+/* ── Ô ngày cưới ───────────────────────────────────────────────────────── */
+
+.mark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+  text-align: center;
+  /* Nét bút khoanh quanh ô, như khoanh tay trên tờ lịch giấy */
+  box-shadow: inset 0 0 0 2px var(--c-red);
+}
+
+/* Ngôi sao lớn đè lên góc ô, một nửa tràn ra ngoài khung */
+.bigStar {
+  z-index: 3;
+  left: -9%;
+  top: -13%;
+  width: clamp(30px, 7.5vw, 48px);
+  color: var(--c-gold);
+  filter: drop-shadow(0 2px 4px rgba(67, 38, 29, 0.3));
+}
+
+.markNum {
+  font-size: clamp(2.4rem, 1.5rem + 4vw, 3.9rem);
+  font-weight: 600;
+  color: var(--c-red);
+  font-variation-settings: "SOFT" 30, "WONK" 1, "opsz" 96;
+}
+
+.markLabel {
+  font-size: var(--fs-xs);
+  letter-spacing: 0.18em;
+  text-transform: lowercase;
+  color: var(--c-ink-soft);
+}
+
+.markTitle {
+  font-family: var(--font-hand);
+  font-size: clamp(0.95rem, 0.8rem + 0.7vw, 1.3rem);
+  line-height: 1.15;
+  color: var(--c-red-soft);
+}
+
+.heart {
+  width: 0.85rem;
+  margin-top: 0.15rem;
+  color: var(--c-red);
+}
+
+/* ── Mẩu giấy dán dưới chân trang ──────────────────────────────────────── */
+
+.strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.35rem 0.8rem;
+  width: fit-content;
+  margin: clamp(1.1rem, 0.7rem + 1.6vw, 1.8rem) auto 0;
+  padding: 0.4rem 1.1rem;
+  background: var(--c-beige);
+  rotate: -1.5deg;
+  box-shadow: 0 3px 10px -6px rgba(67, 38, 29, 0.7);
+}
+
+.stripLabel {
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--c-ink-soft);
+}
+
+.stripDate {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 0.9rem + 0.9vw, 1.5rem);
+  line-height: 1;
+  color: var(--c-red);
+  font-variation-settings: "SOFT" 24, "WONK" 0, "opsz" 96;
+}
+
+/* ── Màn hình hẹp ──────────────────────────────────────────────────────── */
+
+@media (max-width: 420px) {
+  /* Ô chỉ còn hơn 80px: bớt một ghi chú, cho ảnh to lên bù lại */
+  .noteA {
+    display: none;
+  }
+
+  .polaroid {
+    left: 8%;
+    width: 88%;
+  }
+
+  .snap {
+    width: 84%;
+  }
+
+  /* Giãn chữ như trên desktop thì "chủ nhật" vỡ làm hai dòng */
+  .markLabel {
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+  }
+
+  .markTitle {
+    font-size: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .polaroid,
+  .snap,
+  .strip {
+    rotate: none;
+  }
+}
