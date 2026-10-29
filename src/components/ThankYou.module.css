@@ -29,44 +29,20 @@
   margin-top: var(--sp-2xs);
 }
 
-/* Cả nhà: hai đứa một hàng, ba bé mèo một hàng nhỏ hơn ở dưới */
-.crew {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: clamp(0.35rem, 0.15rem + 0.9vw, 0.75rem);
+/* Tranh vẽ hai đứa chào khách */
+.drawing {
+  width: min(340px, 72%);
   /*
-     Nhịp nghỉ lớn duy nhất của section, tách hẳn phần chữ với phần tranh. Phải
-     gấp đôi những khoảng hở trong nhóm thì mắt mới gom được thành hai cụm —
-     --gap-head chỉ hơn có vài pixel nên không đủ.
+     Nhịp nghỉ lớn duy nhất của section, tách hẳn phần chữ với phần tranh.
   */
-  margin-top: clamp(3rem, 1.6rem + 5.5vw, 5.5rem);
+  margin-top: clamp(2.5rem, 1.4rem + 4.5vw, 4.5rem);
 }
 
-.crewRow {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  gap: clamp(0.5rem, 0.2rem + 1.6vw, 1.75rem);
-}
-
-.member {
-  width: var(--size, 90px);
+.drawing img {
+  display: block;
+  width: 100%;
+  height: auto;
   transform-origin: 50% 85%;
-}
-
-.human {
-  --size: clamp(104px, 26vw, 168px);
-}
-
-.cat {
-  --size: clamp(58px, 15vw, 96px);
-}
-
-/* Chú thích tên mèo dính liền hàng mèo, không đứng thành một dòng riêng lẻ */
-.cats {
-  margin-top: var(--sp-2xs);
-  text-align: center;
 }
 
 /* Câu khép lại — gần cả nhà hơn là gần mép dưới section */

@@ -257,7 +257,7 @@ export const thanks = {
   ],
   signature: "Thương nhiều, Kỳ Nam & Minh Phương",
   /** Ba bé mèo trong tranh — để trống mảng này nếu không muốn hiện tên */
-  cats: ["Lim", "Bư", "Muỗi"],
+  cats: [],
 };
 
 /**

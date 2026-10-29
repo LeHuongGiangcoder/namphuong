@@ -58,10 +58,8 @@ def save(im: Image.Image, rel: str, quality: int = 82) -> None:
 def trim_and_scale(src: Path, max_dim: int) -> Image.Image:
     im = Image.open(src).convert("RGBA")
     # Drop faint noise (e.g. stray alpha=1 pixels) before getting bounding box
-    data = im.getdata()
-    clean_alpha = [0 if a <= 1 else a for _, _, _, a in data]
-    im.putalpha(Image.new("L", im.size))
-    im.putalpha(bytes(clean_alpha))
+    _, _, _, a = im.split()
+    im.putalpha(a.point(lambda v: 0 if v <= 1 else v))
     bbox = im.getbbox()
     if bbox:
         im = im.crop(bbox)          # drop the transparent padding

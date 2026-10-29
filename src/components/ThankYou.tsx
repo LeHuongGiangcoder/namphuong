@@ -3,18 +3,6 @@ import { Reveal } from "./Reveal";
 import { couple, thanks } from "@/data/wedding";
 import s from "./ThankYou.module.css";
 
-/** Hai đứa ở hàng trên, ba bé mèo ở hàng dưới — mỗi bé lắc lư lệch nhịp nhau. */
-const HUMANS = [
-  { src: "her", dur: "4.6s", delay: "0s" },
-  { src: "him", dur: "5.2s", delay: "-1.2s" },
-];
-
-const CATS = [
-  { src: "cat-1", dur: "3.8s", delay: "-0.4s" },
-  { src: "cat-2", dur: "4.2s", delay: "-2.1s" },
-  { src: "cat-3", dur: "4.9s", delay: "-3s" },
-];
-
 export function ThankYou() {
   return (
     <section id="cam-on" className="section section--beige section--beige-light section--grain" aria-labelledby="cam-on-title">
@@ -46,35 +34,15 @@ export function ThankYou() {
           <p className="script">{thanks.signature}</p>
         </Reveal>
 
-        {/* Cả nhà năm thành viên đứng chào */}
-        <Reveal className={s.crew} delay={200}>
-          <div className={s.crewRow}>
-            {HUMANS.map((member) => (
-              <img
-                key={member.src}
-                className={`${s.member} ${s.human} wobble`}
-                style={{ "--dur": member.dur, "--delay": member.delay } as React.CSSProperties}
-                src={`/art/draw/${member.src}.webp`}
-                alt=""
-                aria-hidden="true"
-              />
-            ))}
-          </div>
-          <div className={s.crewRow}>
-            {CATS.map((member) => (
-              <img
-                key={member.src}
-                className={`${s.member} ${s.cat} wobble`}
-                style={{ "--dur": member.dur, "--delay": member.delay } as React.CSSProperties}
-                src={`/art/draw/${member.src}.webp`}
-                alt=""
-                aria-hidden="true"
-              />
-            ))}
-          </div>
-          {thanks.cats.length > 0 ? (
-            <p className={`caption ${s.cats}`}>và ba bé mèo {thanks.cats.join(", ")}</p>
-          ) : null}
+        {/* Tranh vẽ hai đứa chào khách */}
+        <Reveal className={s.drawing} delay={200}>
+          <img
+            className="wobble"
+            src="/art/draw/thank-you.webp"
+            alt={`Tranh vẽ ${couple.groom} và ${couple.bride}`}
+            width={760}
+            height={478}
+          />
         </Reveal>
 
         <Reveal className={s.sign} delay={260}>
