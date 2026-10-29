@@ -90,7 +90,7 @@ export const venue = {
   name: "Cầu Am Place",
   hall: "",
   address: "Số 9 Chu Văn An, Yết Kiêu, Hà Đông, Hà Nội",
-  mapUrl: "https://maps.google.com/?q=C%E1%BA%A7u+Am+Place+9+Chu+V%C4%83n+An+H%C3%A0+%C4%90%C3%B4ng+H%C3%A0+N%E1%BB%99i",
+  mapUrl: "https://maps.app.goo.gl/TdmKMyEVSjN9xV7e6?g_st=ic",
   note: "Tới sớm một chút để còn kịp chụp hình với tụi mình nha.",
 };
 
