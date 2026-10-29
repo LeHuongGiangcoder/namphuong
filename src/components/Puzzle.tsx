@@ -15,15 +15,6 @@ const TAB = 0.18;
 const TAB_PATH = `M0,0 H${1 - TAB} V0.35 C0.9,0.27 1,0.37 1,0.5 C1,0.63 0.9,0.73 ${1 - TAB},0.65 V1 H0 Z`;
 const NOTCH_PATH = `M0,0 H1 V1 H0 V0.65 C0.08,0.73 ${TAB},0.63 ${TAB},0.5 C${TAB},0.37 0.08,0.27 0,0.35 Z`;
 
-/** Viền vẽ đè lên mép cắt: clip-path tự nó không khử răng cưa nên mép ảnh trông thô */
-function Frame({ d }: { d: string }) {
-  return (
-    <svg className={s.frame} viewBox="0 0 1 1" preserveAspectRatio="none" aria-hidden="true">
-      <path d={d} />
-    </svg>
-  );
-}
-
 /*
    Vị trí mảnh rời đo bằng BỀ RỘNG MẢNH chứ không phải pixel: mảnh vuông nên
    `translate` phần trăm quy đúng về bề rộng đó, khỏi cần đo đạc gì thêm và đổi
@@ -132,7 +123,6 @@ export function Puzzle() {
             draggable={false}
             style={{ clipPath: `url(#${clipId}-tab)` }}
           />
-          <Frame d={TAB_PATH} />
         </figure>
 
         <div
@@ -161,7 +151,6 @@ export function Puzzle() {
             draggable={false}
             style={{ clipPath: `url(#${clipId}-notch)` }}
           />
-          <Frame d={NOTCH_PATH} />
         </div>
       </div>
 

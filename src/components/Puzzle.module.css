@@ -55,23 +55,6 @@
   -webkit-user-drag: none;
 }
 
-.frame {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-  pointer-events: none;
-}
-
-.frame path {
-  fill: none;
-  stroke: var(--c-cream);
-  stroke-width: 5px;
-  stroke-linejoin: round;
-  vector-effect: non-scaling-stroke;
-}
-
 .slot {
   left: 0;
 }
