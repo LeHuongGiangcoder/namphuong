@@ -100,7 +100,7 @@ export function Hero() {
           >
             <img
               className="stamp__photo"
-              src="/art/hero-1.webp"
+              src="/gallery/02.webp"
               alt={`${couple.groomFull} và ${couple.brideFull}`}
               width={708}
               height={1008}

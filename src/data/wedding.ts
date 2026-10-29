@@ -76,13 +76,13 @@ export const gallery = {
  * section bên dưới mới mở.
  */
 export const puzzle = {
-  title: "Ghép hai đứa lại nha",
-  prompt: "Kéo mảnh bên phải cho khớp vào mảnh bên trái",
+  title: "Bạn kéo chú rể lại gần cô dâu được không nè?",
+  prompt: "Kéo chú rể lại gần cô dâu cho khớp nha",
   done: "Khớp rồi! Thông tin lễ cưới mở ngay bên dưới nha.",
   locked: "Ghép hai mảnh ảnh phía trên để mở phần này nha",
   pieces: [
-    { src: "/art/puzzle-2.webp", alt: "Minh Phương dưới ánh đèn spotlight" },
-    { src: "/art/puzzle-1.webp", alt: "Kỳ Nam dưới ánh đèn spotlight" },
+    { src: "/art/puzzle-10-bride.webp", alt: "Cô dâu Minh Phương hôn nhẹ lên má chú rể" },
+    { src: "/art/puzzle-10-groom.webp", alt: "Chú rể Kỳ Nam nhìn thẳng ra phía trước" },
   ],
 };
 
@@ -140,15 +140,15 @@ export const agenda: {
         {
           time: "09:30",
           title: "Đón khách",
-          photo: "/agenda/01-welcoming.webp",
-          alt: "Hai đứa trước phông trái tim đỏ",
+          photo: "/gallery/03.webp",
+          alt: "Minh Phương tựa cằm lên tay, Kỳ Nam đứng thẳng bên cạnh",
         },
         {
           time: "10:00",
           title: "Lễ vow",
           note: "Lễ thề nguyện của hai đứa",
-          photo: "/agenda/02-vows.webp",
-          alt: "Minh Phương cười, Kỳ Nam khoanh tay",
+          photo: "/gallery/08.webp",
+          alt: "Minh Phương tựa vào vai Kỳ Nam",
         },
       ],
     },
@@ -162,14 +162,14 @@ export const agenda: {
         {
           time: "11:00",
           title: "Đón khách",
-          photo: "/agenda/04-welcome.webp",
-          alt: "Hai đứa dưới vầng sáng spotlight",
+          photo: "/gallery/11.jpg",
+          alt: "Hai đứa cạnh nhau trong buổi tiệc",
         },
         {
           time: "11:30",
-          title: "Khai tiệc",
-          photo: "/agenda/06-party.webp",
-          alt: "Minh Phương ôm Kỳ Nam, hôn nhẹ lên má",
+          title: "Lễ Thành Hôn",
+          photo: "/gallery/06.webp",
+          alt: "Minh Phương trao nụ hôn gió, Kỳ Nam đứng cạnh",
         },
       ],
     },
@@ -256,6 +256,6 @@ export const honeymoon = {
  * Để trống thì nút nhạc tự ẩn.
  */
 export const music = {
-  src: "",
-  title: "",
+  src: "/audio/music.mp4",
+  title: "Nhạc nền",
 };
