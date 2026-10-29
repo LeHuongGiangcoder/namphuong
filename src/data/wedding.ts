@@ -250,6 +250,16 @@ export const honeymoon = {
   signature: "Thương nhiều, Kỳ Nam & Minh Phương",
 };
 
+export const thanks = {
+  title: "Cảm ơn bạn",
+  lines: [
+    "Hẹn gặp bạn ở đám cưới, nhớ đói bụng sẵn nha!",
+  ],
+  signature: "Thương nhiều, Kỳ Nam & Minh Phương",
+  /** Ba bé mèo trong tranh — để trống mảng này nếu không muốn hiện tên */
+  cats: ["Lim", "Bư", "Muỗi"],
+};
+
 /**
  * Nhạc nền — bật sau khi bấm "Print now".
  * Bỏ file mp3 vào /public/audio/ rồi điền tên file vào đây.

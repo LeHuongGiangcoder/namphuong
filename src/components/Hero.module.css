@@ -411,3 +411,12 @@
     display: none;
   }
 }
+
+/* Dấu & dùng chữ viết tay cho rõ nét, không dùng italic Fraunces */
+.ampChar {
+  font-family: var(--font-hand);
+  font-style: normal;
+  font-weight: 600;
+  font-variation-settings: normal;
+  line-height: 1;
+}

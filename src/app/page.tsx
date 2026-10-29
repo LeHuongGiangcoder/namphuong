@@ -6,6 +6,7 @@ import { GuestProvider } from "@/components/GuestContext";
 import { Hero } from "@/components/Hero";
 import { UnlockProvider } from "@/components/LockContext";
 import { Rsvp } from "@/components/Rsvp";
+import { ThankYou } from "@/components/ThankYou";
 
 export default function Page() {
   return (
@@ -23,6 +24,7 @@ export default function Page() {
         <Agenda />
         <Dresscode />
         <Rsvp />
+        <ThankYou />
       </GuestProvider>
     </main>
   );

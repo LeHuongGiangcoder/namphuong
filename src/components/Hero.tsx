@@ -82,7 +82,7 @@ export function Hero() {
       <div className={s.top}>
         <p className="eyebrow">Save the date</p>
         <p className={s.monogram}>
-          {couple.groom.at(0)} &amp; {couple.bride.at(0)}
+          {couple.groom.split(" ").at(-1)?.at(0)} <span className={s.ampChar}>&amp;</span> {couple.bride.split(" ").at(-1)?.at(0)}
           <img className={`${s.monogramBow} wobble`} src="/art/beige/bow.webp" alt="" aria-hidden="true" />
         </p>
       </div>
@@ -141,7 +141,7 @@ export function Hero() {
             <h1 className={s.name}>{couple.groom}</h1>
             <span className={s.amp}>
               <img className={`${s.ampSparkle} twinkle`} src="/art/beige/sparkle.webp" alt="" aria-hidden="true" />
-              &amp;
+              <span className={s.ampChar}>&amp;</span>
               <img className={`${s.ampSparkle} twinkle`} src="/art/beige/sparkle.webp" alt="" aria-hidden="true" />
             </span>
             <p className={s.name}>{couple.bride}</p>
