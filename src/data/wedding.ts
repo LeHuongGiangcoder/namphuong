@@ -87,7 +87,7 @@ export const puzzle = {
 };
 
 export const venue = {
-  name: "Cầu Am Place",
+  name: "Cầu Am Palace",
   hall: "",
   address: "Số 9 Chu Văn An, Yết Kiêu, Hà Đông, Hà Nội",
   mapUrl: "https://maps.app.goo.gl/TdmKMyEVSjN9xV7e6?g_st=ic",
