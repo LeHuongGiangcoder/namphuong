@@ -144,7 +144,7 @@ export const agenda: {
           alt: "Minh Phương tựa cằm lên tay, Kỳ Nam đứng thẳng bên cạnh",
         },
         {
-          time: "10:00",
+          time: "11:00",
           title: "Lễ vow",
           note: "Lễ thề nguyện của hai đứa",
           photo: "/gallery/08.webp",
