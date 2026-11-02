@@ -134,7 +134,7 @@ export const agenda: {
       id: "intimate",
       tab: "Lễ vow",
       title: "Buổi sáng của những người thân nhất",
-      start: "10:00",
+      start: "09:30",
       end: "11:00",
       items: [
         {
@@ -144,7 +144,7 @@ export const agenda: {
           alt: "Minh Phương tựa cằm lên tay, Kỳ Nam đứng thẳng bên cạnh",
         },
         {
-          time: "11:00",
+          time: "10:00",
           title: "Lễ vow",
           note: "Lễ thề nguyện của hai đứa",
           photo: "/gallery/08.webp",
@@ -166,7 +166,7 @@ export const agenda: {
           alt: "Hai đứa cạnh nhau trong buổi tiệc",
         },
         {
-          time: "11:00",
+          time: "11:30",
           title: "Lễ Thành Hôn",
           photo: "/gallery/06.webp",
           alt: "Minh Phương trao nụ hôn gió, Kỳ Nam đứng cạnh",
