@@ -40,7 +40,7 @@ export const families = [
 ];
 
 /** Giờ khai tiệc chính (giờ Việt Nam, UTC+7) — tờ lịch và đồng hồ đếm ngược đều tính từ đây */
-export const weddingDate = "2026-11-14T11:30:00+07:00";
+export const weddingDate = "2026-11-14T11:00:00+07:00";
 
 export const dateLabel = {
   weekday: "Thứ Bảy",
@@ -135,7 +135,7 @@ export const agenda: {
       tab: "Lễ vow",
       title: "Buổi sáng của những người thân nhất",
       start: "09:30",
-      end: "11:30",
+      end: "11:00",
       items: [
         {
           time: "09:30",
@@ -166,7 +166,7 @@ export const agenda: {
           alt: "Hai đứa cạnh nhau trong buổi tiệc",
         },
         {
-          time: "11:30",
+          time: "11:00",
           title: "Lễ Thành Hôn",
           photo: "/gallery/06.webp",
           alt: "Minh Phương trao nụ hôn gió, Kỳ Nam đứng cạnh",
