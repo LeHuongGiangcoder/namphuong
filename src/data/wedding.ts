@@ -134,7 +134,7 @@ export const agenda: {
       id: "intimate",
       tab: "Lễ vow",
       title: "Buổi sáng của những người thân nhất",
-      start: "09:30",
+      start: "10:00",
       end: "11:00",
       items: [
         {
